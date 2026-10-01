@@ -1,0 +1,84 @@
+create database if not exists wearit_2 character set utf8mb4 collate utf8mb4_unicode_ci;
+use wearit_2;
+
+-- character set utf8mb4 -Allows the database to store many types of characters, such as Chinese, English, and emojis.
+-- collate utf8mb4_unicode_ci -Defines how text is compared and sorted.
+
+SET FOREIGN_KEY_CHECKS = 0;
+DROP TABLE IF EXISTS favorite2;
+DROP TABLE IF EXISTS outfit_item2;
+DROP TABLE IF EXISTS outfit2;
+DROP TABLE IF EXISTS clothing_item2;
+DROP TABLE IF EXISTS subcategory2;
+DROP TABLE IF EXISTS category2;
+DROP TABLE IF EXISTS user2;
+SET FOREIGN_KEY_CHECKS = 1;
+
+create table user2(
+id int auto_increment primary key,
+name varchar(225) not null,
+email varchar(150) not null unique,
+password_hash varchar(255) not null,
+role ENUM('admin', 'user', 'guest') not null default 'user',
+created_at timestamp default current_timestamp
+);
+
+create table category2 (
+id int auto_increment primary key,
+name varchar(50) not null unique
+);
+
+create table subcategory2 (
+id int auto_increment primary key,
+category2_id int not null,
+name varchar(50) not null,
+foreign key (category2_id) references category2(id) on delete cascade
+);
+
+create table clothing_item2(
+id int auto_increment primary key,
+user2_id int not null,
+category2_id int not null,
+subcategory2_id int null,
+name varchar(225) not null,
+color varchar(50),
+material varchar(50),
+pattern varchar(50),
+image_path varchar(255),
+created_at timestamp default current_timestamp,
+foreign key (user2_id) references user2(id) on delete cascade,
+foreign key (category2_id) references category2(id),
+foreign key (subcategory2_id) references subcategory2(id) on delete cascade
+);
+
+create table outfit2 (
+id int auto_increment primary key,
+user2_id int not null,
+is_public tinyint(1) not null default 0,
+created_at timestamp default current_timestamp,
+foreign key (user2_id) references user2(id) on delete cascade
+);
+
+create table outfit_item2(
+id int auto_increment primary key,
+outfit2_id int not null,
+clothing_item2_id int not null,
+foreign key (outfit2_id) references outfit2(id),
+foreign key (clothing_item2_id) references clothing_item2(id)
+);
+
+create table favorite2(
+id int auto_increment primary key,
+user2_id int not null,
+outfit2_id int not null,
+foreign key (user2_id) references user2(id) on delete cascade,
+foreign key (outfit2_id) references outfit2(id) on delete cascade
+);
+
+insert into category2 (name) values ('Top'), ('Bottom'), ('Shoes'), ('Outerwear'), ('Accessory');
+
+insert into subcategory2 (category2_id, name) values
+(2, 'Jeans'), (2, 'Dress Pants'), (2, 'Sweatpants'), (2, 'Shorts'), (3, 'Sneakers'), (3, 'Boots'), (3, 'Martin Boots'), (5, 'Belt'), (5, 'Necklace'), (5, 'Bracelet'), (5, 'Earrings'), (5, 'Scarf'), (5, 'Headscarf'), (5, 'Hat'), (5, 'Ring');
+
+INSERT INTO user2 (name, email, password_hash, role) VALUES
+('Admin', 'admin@wearit.com', '$2y$12$xcbZ1QqEBRI2WgswqUPCfuczXzlotHwa662cwxgKmVP3n5OyiFg6W', 'admin');

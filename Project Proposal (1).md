@@ -187,13 +187,11 @@ erDiagram
         string color
         string material
         string pattern
-        string season
         string image_path
     }
     outfit {
         int outfit_id PK
         int user_id FK
-        string occasion
         boolean is_public
     }
     outfit_item {
