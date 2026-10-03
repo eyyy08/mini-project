@@ -1,3 +1,34 @@
+<?php
+
+$db = new PDO("mysql:host=localhost;dbname=wearit_2", "root", "");
+
+$error = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+  $email = trim($_POST['email']);
+  $password = $_POST['password'];
+
+  $statement=$db->prepare("SELECT * FROM user2 WHERE email = ?");
+  $statement->execute([$email]);
+  $user = $statement->fetch();
+
+  if ($user && password_verify($password, $user['password_hash'])){
+    $_SESSION['user_id'] = $user['id'];
+    $_SESSION['user_name'] = $user['name'];
+    $_SESSION['user_role'] = $user['role'];
+
+    header('Location: wardrobe.php');
+    exit;
+  }
+
+  $error = 'Invalid email or password.';
+}
+
+?>
+
+
+
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -18,12 +49,17 @@
       <section>
         <div class="card">
           <h1>Login</h1>
-          <form>
+
+          <?php if ($error): ?>
+            <p style="color: red;"><?= htmlspecialchars($error) ?></p>
+          <?php endif; ?>
+
+          <form method="post">
             <label for="email">Email</label>
-            <input type="email" required /><br /><br />
+            <input type="email" name="email" required /><br /><br />
 
             <label for="password">Password</label>
-            <input type="password" required /><br /><br />
+            <input type="password" name="password" required /><br /><br />
 
             <button class="btn" type="submit">Login</button>
           </form>
