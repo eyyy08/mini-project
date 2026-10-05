@@ -1,3 +1,16 @@
+<?php
+session_start();
+require __DIR__ . '/roles.php';
+
+if (!isLoggedIn()) {
+    header('Location: login.php');
+    exit;
+}
+
+$db = new PDO("mysql:host=localhost;dbname=wearit_2", "root", "");
+
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -23,14 +36,12 @@
 
     <main>
       <section id="favorite">
-        <h1>My favorites</h1>
-        <p class="switch">
-          No favourites yet. Head to the <a href="#">gallery</a> and favourite
-          some outfits.
-        </p>
+        <h1>Public outfit gallery</h1>
+        <p>No public outfits yet.</p>
 
         <div class="container">
-          <div class="card2">
+          <div class="card">
+            <p><span class="light">Shared by (Name)</span></p>
             <ul>
               <li>Top: Name</li>
               <li>Bottom: Name</li>
@@ -38,10 +49,11 @@
               <li>Outerwear: Name</li>
             </ul>
 
-            <button class="btn">Remove favorite</button>
+            <button class="btn">Favorited</button>
           </div>
 
-          <div class="card2">
+          <div class="card">
+            <p><span class="light">Shared by (Name)</span></p>
             <ul>
               <li>Top: Name</li>
               <li>Bottom: Name</li>
@@ -49,10 +61,11 @@
               <li>Outerwear: Name</li>
             </ul>
 
-            <button class="btn">Remove favorite</button>
+            <button class="btn">Favorited</button>
           </div>
 
-          <div class="card2">
+          <div class="card">
+            <p><span class="light">Shared by (Name)</span></p>
             <ul>
               <li>Top: Name</li>
               <li>Bottom: Name</li>
@@ -60,10 +73,11 @@
               <li>Outerwear: Name</li>
             </ul>
 
-            <button class="btn">Remove favorite</button>
+            <button class="btn">Favorited</button>
           </div>
 
-          <div class="card2">
+          <div class="card">
+            <p><span class="light">Shared by (Name)</span></p>
             <ul>
               <li>Top: Name</li>
               <li>Bottom: Name</li>
@@ -71,7 +85,7 @@
               <li>Outerwear: Name</li>
             </ul>
 
-            <button class="btn">Remove favorite</button>
+            <button class="btn">Favorited</button>
           </div>
         </div>
       </section>

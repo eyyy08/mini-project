@@ -1,3 +1,21 @@
+<?php
+session_start();
+require __DIR__ . '/roles.php';
+
+if (!isLoggedIn()) {
+    header('Location: login.php');
+    exit;
+}
+
+if (!isUser() && !isGuest()) {
+    header('Location: noaccess.php');
+    exit;
+}
+
+$db = new PDO("mysql:host=localhost;dbname=wearit_2", "root", "");
+
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -23,12 +41,14 @@
 
     <main>
       <section id="favorite">
-        <h1>Public outfit gallery</h1>
-        <p>No public outfits yet.</p>
+        <h1>My favorites</h1>
+        <p class="switch">
+          No favourites yet. Head to the <a href="#">gallery</a> and favourite
+          some outfits.
+        </p>
 
         <div class="container">
-          <div class="card">
-            <p><span class="light">Shared by (Name)</span></p>
+          <div class="card2">
             <ul>
               <li>Top: Name</li>
               <li>Bottom: Name</li>
@@ -36,11 +56,10 @@
               <li>Outerwear: Name</li>
             </ul>
 
-            <button class="btn">Favorited</button>
+            <button class="btn">Remove favorite</button>
           </div>
 
-          <div class="card">
-            <p><span class="light">Shared by (Name)</span></p>
+          <div class="card2">
             <ul>
               <li>Top: Name</li>
               <li>Bottom: Name</li>
@@ -48,11 +67,10 @@
               <li>Outerwear: Name</li>
             </ul>
 
-            <button class="btn">Favorited</button>
+            <button class="btn">Remove favorite</button>
           </div>
 
-          <div class="card">
-            <p><span class="light">Shared by (Name)</span></p>
+          <div class="card2">
             <ul>
               <li>Top: Name</li>
               <li>Bottom: Name</li>
@@ -60,11 +78,10 @@
               <li>Outerwear: Name</li>
             </ul>
 
-            <button class="btn">Favorited</button>
+            <button class="btn">Remove favorite</button>
           </div>
 
-          <div class="card">
-            <p><span class="light">Shared by (Name)</span></p>
+          <div class="card2">
             <ul>
               <li>Top: Name</li>
               <li>Bottom: Name</li>
@@ -72,7 +89,7 @@
               <li>Outerwear: Name</li>
             </ul>
 
-            <button class="btn">Favorited</button>
+            <button class="btn">Remove favorite</button>
           </div>
         </div>
       </section>

@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 $db = new PDO("mysql:host=localhost;dbname=wearit_2", "root", "");
 
@@ -13,9 +14,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
   $user = $statement->fetch();
 
   if ($user && password_verify($password, $user['password_hash'])){
-    $_SESSION['user_id'] = $user['id'];
-    $_SESSION['user_name'] = $user['name'];
-    $_SESSION['user_role'] = $user['role'];
+    $_SESSION['user']=[
+      'id' => $user['id'],
+      'name' => $user['name'],
+      'email' => $user['email'],
+      'role' => $user['role'],
+    ];
 
     header('Location: wardrobe.php');
     exit;
@@ -64,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
             <button class="btn" type="submit">Login</button>
           </form>
           <p class="switch">
-            No account yet? <a href="register.html">Register</a>
+            No account yet? <a href="register.php">Register</a>
           </p>
         </div>
       </section>

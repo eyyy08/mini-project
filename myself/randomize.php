@@ -1,3 +1,21 @@
+<?php
+session_start();
+require __DIR__ . '/roles.php';
+
+if (!isLoggedIn()) {
+    header('Location: login.php');
+    exit;
+}
+
+if (!isUser()) {
+    header('Location: noaccess.php');
+    exit;
+}
+
+$db = new PDO("mysql:host=localhost;dbname=wearit_2", "root", "");
+
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
