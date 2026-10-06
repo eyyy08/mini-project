@@ -29,13 +29,13 @@ $db = new PDO("mysql:host=localhost;dbname=wearit_2", "root", "");
       <a class="logo" href="#">WearIT</a>
 
       <nav>
-        <a href="#">Gallery</a>
-        <a href="#">My Wardrobe</a>
-        <a href="#">Randomize</a>
-        <a href="#">My Outfits</a>
-        <a href="#">Favourites</a>
+        <a href="gallery.php">Gallery</a>
+        <a href="wardrobe.php">My Wardrobe</a>
+        <a href="randomize.php">Randomize</a>
+        <a href="myoutfit.php">My Outfits</a>
+        <a href="favorite.php">Favourites</a>
         <span class="badge">Martin · User</span>
-        <a href="#">Log Out</a>
+        <a href="logout.php">Log Out</a>
       </nav>
     </header>
 

@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <header>
       <a class="logo" href="#">WearIT</a>
       <nav>
-        <a href="login.html">Login</a><a href="register.html">Register</a>
+        <a href="login.php">Login</a><a href="register.php">Register</a>
       </nav>
     </header>
 

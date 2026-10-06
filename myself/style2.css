@@ -20,15 +20,14 @@ body {
     sans-serif;
 }
 
-body.background{
+body.background {
   background-color: #fff5f2; /* 图片没铺到的地方的底色 */
-  background-image:url(background-project.png) ; /* 路径是相对于 CSS 文件 */
+  background-image: url(background-project.png); /* 路径是相对于 CSS 文件 */
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
   background-attachment: fixed;
 }
-
 
 header {
   display: flex;
@@ -193,7 +192,6 @@ footer {
 }
 
 .card2 {
-  border-top: 5px solid #e6d5d0;
   width: 100%;
   background: #fff;
   padding: 2rem;
@@ -215,7 +213,7 @@ footer {
   width: fit-content;
 }
 
-.randomize1-btn{
+.randomize1-btn {
   width: 18rem;
   margin-bottom: 1rem;
 }

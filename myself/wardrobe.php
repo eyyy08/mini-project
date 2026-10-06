@@ -14,6 +14,18 @@ if (!isUser()) {
 
 $db = new PDO("mysql:host=localhost;dbname=wearit_2", "root", "");
 
+$statement = $db->prepare("
+SELECT ci.*, c.name AS category2_name, s.name AS subcategory2_name
+FROM clothing_item2 ci
+JOIN category2 c ON ci.category2_id = c.id
+LEFT JOIN subcategory2 s ON ci.subcategory2_id = s.id
+WHERE ci.user2_id = ?
+ORDER BY ci.created_at DESC
+");
+
+$statement->execute([$_SESSION['user']['id']]);
+$items = $statement->fetchALL();
+
 ?>
 
 <!doctype html>
@@ -29,85 +41,43 @@ $db = new PDO("mysql:host=localhost;dbname=wearit_2", "root", "");
       <a class="logo" href="#">WearIT</a>
 
       <nav>
-        <a href="#">Gallery</a>
-        <a href="#">My Wardrobe</a>
-        <a href="#">Randomize</a>
-        <a href="#">My Outfits</a>
-        <a href="#">Favourites</a>
-        <span class="badge">Martin · User</span>
-        <a href="#">Log Out</a>
+        <a href="gallery.php">Gallery</a>
+        <a href="wardrobe.php">My Wardrobe</a>
+        <a href="randomize.php">Randomize</a>
+        <a href="myoutfit.php">My Outfits</a>
+        <a href="favorite.php">Favorites</a>
+        <span class="badge"><?= htmlspecialchars($_SESSION['user']['name']) ?> · <?= htmlspecialchars($_SESSION['user']['role']) ?></span>
+        <a href="logout.php">Log Out</a>
       </nav>
     </header>
 
     <main>
       <section id="favorite">
         <h1>My Wardrobe</h1>
-        <button class="btn outfit-btn">+ Add clothing item</button>
+        <button class="btn outfit-btn"><a href="itemform.php">+ Add clothing item</a></button>
 
+        <?php if(empty($items)): ?>
         <div class="wardrobe-des">
           <p>Your wardrobe is empty. Add your first item to get started.</p>
         </div>
+        <?php endif;?>
 
         <div class="container">
+          <?php foreach ($items as $item): ?>
           <div class="card">
-            <h3>Name</h3>
-            <p>Category</p>
-            <p>Color, Pattern, Material</p>
-            <p>Season / Occasion</p>
+            <h3><?= htmlspecialchars($item['name'])?></h3>
+            <p><?= htmlspecialchars($item['category2_name'])?><?= $item['subcategory2_name'] ? '/' . htmlspecialchars($item['subcategory2_name']): '' ?></p>
+            <p><?= htmlspecialchars($item['color']) ?><?= $item['material'] ? ', ' . htmlspecialchars($item['material']) : '' ?><?= $item['pattern'] ? ', ' . htmlspecialchars($item['pattern']) : '' ?></p>
 
             <div class="wardrobe-btn">
-              <button class="btn outfit-btn">Edit</button>
-              <button class="btn outfit-btn">Delete</button>
+              <a class="btn outfit-btn" href="itemform.php?id=<?= $item['id'] ?>">Edit</a>
+              <form method="post" action="itemdelete.php" style="display:inline;">
+                <input type="hidden" name="id" value="<?= $item['id'] ?>">
+                <button type="submit" class="btn outfit-btn" onclick="return confirm('Delete this item?');">Delete</button>
+              </form>
             </div>
           </div>
-
-          <div class="card">
-            <h3>Name</h3>
-            <p>Category</p>
-            <p>Color, Pattern, Material</p>
-            <p>Season / Occasion</p>
-
-            <div class="wardrobe-btn">
-              <button class="btn outfit-btn">Edit</button>
-              <button class="btn outfit-btn">Delete</button>
-            </div>
-          </div>
-
-          <div class="card">
-            <h3>Name</h3>
-            <p>Category</p>
-            <p>Color, Pattern, Material</p>
-            <p>Season / Occasion</p>
-
-            <div class="wardrobe-btn">
-              <button class="btn outfit-btn">Edit</button>
-              <button class="btn outfit-btn">Delete</button>
-            </div>
-          </div>
-
-          <div class="card">
-            <h3>Name</h3>
-            <p>Category</p>
-            <p>Color, Pattern, Material</p>
-            <p>Season / Occasion</p>
-
-            <div class="wardrobe-btn">
-              <button class="btn outfit-btn">Edit</button>
-              <button class="btn outfit-btn">Delete</button>
-            </div>
-          </div>
-
-          <div class="card">
-            <h3>Name</h3>
-            <p>Category</p>
-            <p>Color, Pattern, Material</p>
-            <p>Season / Occasion</p>
-
-            <div class="wardrobe-btn">
-              <button class="btn outfit-btn">Edit</button>
-              <button class="btn outfit-btn">Delete</button>
-            </div>
-          </div>
+          <?php endforeach;?>
         </div>
       </section>
     </main>
