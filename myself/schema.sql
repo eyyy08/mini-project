@@ -81,4 +81,4 @@ insert into subcategory2 (category2_id, name) values
 (2, 'Jeans'), (2, 'Dress Pants'), (2, 'Sweatpants'), (2, 'Shorts'), (3, 'Sneakers'), (3, 'Boots'), (3, 'Martin Boots'), (5, 'Belt'), (5, 'Necklace'), (5, 'Bracelet'), (5, 'Earrings'), (5, 'Scarf'), (5, 'Headscarf'), (5, 'Hat'), (5, 'Ring');
 
 INSERT INTO user2 (name, email, password_hash, role) VALUES
-('Admin', 'admin@wearit.com', '$2y$12$xcbZ1QqEBRI2WgswqUPCfuczXzlotHwa662cwxgKmVP3n5OyiFg6W', 'admin');
+('Admin', 'admin@wearit.com', '$2b$12$jLWSksHyXWj.DtjaZLGdT.TtenudlyArAjhRp3v9W1v38c7Q6ZExi', 'admin');
