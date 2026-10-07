@@ -20,7 +20,7 @@ $message = '';
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
   if($_POST['action'] === 'generate') {
     $requiredCategories = ['Top', 'Bottom', 'Shoes'];
-    $optionalCategories = ['Outerwear', 'Accessory'];
+    $optionalCategories = ['Outerwear'];
 
     $statement=$db->prepare("
     SELECT ci.* FROM clothing_item2 ci
@@ -60,8 +60,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
       $outfitId=$db->lastInsertId();
 
-      $linkstatement = $db->prepare("INSERT INTO outfit2_item2 (outfit2_id, item2_id) VALUES (?, ?)");
-      foreach ($itemIds as $itemId) {
+      $linkstatement = $db->prepare("INSERT INTO outfit_item2 (outfit2_id, clothing_item2_id) VALUES (?, ?)");
+      foreach ($itemids as $itemId) {
       $linkstatement->execute([$outfitId, $itemId]);
     }
 

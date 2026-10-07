@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="text" id="name" name="name" value="<?= htmlspecialchars($name) ?>" required /><br /><br />
 
             <label for="email">Email</label>
-            <input type="email" id="email" name="email" value="<?= htmlspecialchars($name) ?>" required /><br /><br />
+            <input type="email" id="email" name="email" value="<?= htmlspecialchars($email) ?>" required /><br /><br />
 
             <label for="password">Password</label>
             <input type="password" id="password" name="password" required />
@@ -84,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <button class="btn" type="submit">Create account</button>
           </form>
           <p class="switch">
-            Already have an account? <a href="login.html">Login</a>
+            Already have an account? <a href="login.php">Login</a>
           </p>
         </div>
       </section>

@@ -54,7 +54,7 @@ $items = $statement->fetchALL();
     <main>
       <section id="favorite">
         <h1>My Wardrobe</h1>
-        <button class="btn outfit-btn"><a href="itemform.php">+ Add clothing item</a></button>
+        <a class="btn outfit-btn" href="itemform.php">+ Add clothing item</a>
 
         <?php if(empty($items)): ?>
         <div class="wardrobe-des">
@@ -67,7 +67,7 @@ $items = $statement->fetchALL();
           <div class="card">
             <h3><?= htmlspecialchars($item['name'])?></h3>
             <p><?= htmlspecialchars($item['category2_name'])?><?= $item['subcategory2_name'] ? '/' . htmlspecialchars($item['subcategory2_name']): '' ?></p>
-            <p><?= htmlspecialchars($item['color']) ?><?= $item['material'] ? ', ' . htmlspecialchars($item['material']) : '' ?><?= $item['pattern'] ? ', ' . htmlspecialchars($item['pattern']) : '' ?></p>
+            <p><?= htmlspecialchars($item['color'] ?? '') ?><?= $item['material'] ? ', ' . htmlspecialchars($item['material']) : '' ?><?= $item['pattern'] ? ', ' . htmlspecialchars($item['pattern']) : '' ?></p>
 
             <div class="wardrobe-btn">
               <a class="btn outfit-btn" href="itemform.php?id=<?= $item['id'] ?>">Edit</a>

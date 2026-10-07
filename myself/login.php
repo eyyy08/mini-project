@@ -21,7 +21,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
       'role' => $user['role'],
     ];
 
-    header('Location: wardrobe.php');
+    if ($user['role'] === 'admin') {
+      header('Location: admincategory.php');
+
+    } elseif ($user['role'] === 'user') {
+      header('Location: wardrobe.php');
+
+    } else {
+      header('Location: gallery.php');
+    }
     exit;
   }
 

@@ -132,6 +132,9 @@ input:focus {
     transform 0.15s,
     box-shadow 0.15s,
     background 0.15s;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
 }
 
 .btn:hover {

@@ -40,7 +40,7 @@ id int auto_increment primary key,
 user2_id int not null,
 category2_id int not null,
 subcategory2_id int null,
-name varchar(225) not null,
+name varchar(255) not null,
 color varchar(50),
 material varchar(50),
 pattern varchar(50),
@@ -48,7 +48,7 @@ image_path varchar(255),
 created_at timestamp default current_timestamp,
 foreign key (user2_id) references user2(id) on delete cascade,
 foreign key (category2_id) references category2(id),
-foreign key (subcategory2_id) references subcategory2(id) on delete cascade
+foreign key (subcategory2_id) references subcategory2(id) on delete set null
 );
 
 create table outfit2 (
@@ -63,8 +63,8 @@ create table outfit_item2(
 id int auto_increment primary key,
 outfit2_id int not null,
 clothing_item2_id int not null,
-foreign key (outfit2_id) references outfit2(id),
-foreign key (clothing_item2_id) references clothing_item2(id)
+foreign key (outfit2_id) references outfit2(id) on delete cascade,
+foreign key (clothing_item2_id) references clothing_item2(id) on delete cascade
 );
 
 create table favorite2(
@@ -75,10 +75,10 @@ foreign key (user2_id) references user2(id) on delete cascade,
 foreign key (outfit2_id) references outfit2(id) on delete cascade
 );
 
-insert into category2 (name) values ('Top'), ('Bottom'), ('Shoes'), ('Outerwear'), ('Accessory');
+insert into category2 (name) values ('Top'), ('Bottom'), ('Shoes'), ('Outerwear');
 
 insert into subcategory2 (category2_id, name) values
-(2, 'Jeans'), (2, 'Dress Pants'), (2, 'Sweatpants'), (2, 'Shorts'), (3, 'Sneakers'), (3, 'Boots'), (3, 'Martin Boots'), (5, 'Belt'), (5, 'Necklace'), (5, 'Bracelet'), (5, 'Earrings'), (5, 'Scarf'), (5, 'Headscarf'), (5, 'Hat'), (5, 'Ring');
+(2, 'Jeans'), (2, 'Dress Pants'), (2, 'Sweatpants'), (2, 'Shorts'), (3, 'Sneakers'), (3, 'Boots'), (3, 'Martin Boots');
 
 INSERT INTO user2 (name, email, password_hash, role) VALUES
 ('Admin', 'admin@wearit.com', '$2b$12$jLWSksHyXWj.DtjaZLGdT.TtenudlyArAjhRp3v9W1v38c7Q6ZExi', 'admin');

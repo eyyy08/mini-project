@@ -7,7 +7,7 @@ if (!isLoggedIn()) {
     exit;
 }
 if (!isUser()) {
-    header('Location: no_access.php');
+    header('Location: noaccess.php');
     exit;
 }
 
@@ -15,7 +15,7 @@ $db = new PDO("mysql:host=localhost;dbname=wearit_2", "root", "");
 
 $itemid = isset($_GET['id']) ? (int) $_GET['id'] :null;
 $item = ['name' => '', 'category2_id' => '', 'subcategory2_id' => '', 'color' => '', 'material' => '', 'pattern' => '', 'image_path' => ''];
-$error =[];
+$errors =[];
 
 if ($itemid){
     $statement = $db->prepare("SELECT * FROM clothing_item2 WHERE id = ? AND user2_id = ?");
@@ -110,7 +110,7 @@ $subcategories=$db->query("SELECT * FROM subcategory2 ORDER BY name")->fetchALL(
             <div class="card">
                 <h1><?=$itemid ? 'Edit item' : 'Add a clothing item' ?></h1>
 
-                <?php foreach ($error as $err): ?>
+                <?php foreach ($errors as $err): ?>
                     <p style="color: red;"><?= htmlspecialchars($err) ?></p>
                 <?php endforeach; ?>
 
@@ -157,8 +157,8 @@ $subcategories=$db->query("SELECT * FROM subcategory2 ORDER BY name")->fetchALL(
     </footer>
     
     <script>
-      const categorySelect = document.getElementById('category_id');
-      const subcategorySelect = document.getElementById('subcategory_id');
+      const categorySelect = document.getElementById('category2_id');
+      const subcategorySelect = document.getElementById('subcategory2_id');
       const allSubOptions = Array.from(subcategorySelect.options).map(o => o.cloneNode(true));
 
       function refreshSubcategories() {
@@ -174,6 +174,7 @@ $subcategories=$db->query("SELECT * FROM subcategory2 ORDER BY name")->fetchALL(
         subcategorySelect.value = previousValue;
       }
       categorySelect.addEventListener('change', refreshSubcategories);
+      refreshSubcategories();
     </script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </body>
