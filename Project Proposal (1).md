@@ -46,8 +46,8 @@ Many people own plenty of clothes but still struggle every morning to decide wha
 
 | Role  | Description                                                                                                                                                               |
 | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Admin | Manages system-level data: clothing categories and user accounts. Does not own a personal wardrobe.                                                                       |
-| User  | The everyday wardrobe owner. Adds/edits/deletes their own clothing items, uses the "Randomize Outfit" button, saves favorite outfits, and can share an outfit publicly.   |
+| Admin | Manages system-level data: clothing categories and user accounts. Does not have a personal wardrobe.                                                                       |
+| User  | The wardrobe owner. Manages their own clothing items, uses the "Randomize my outfit" button, saves outfits, shares them publicly, and favorites other people's public outfits.  |
 | Guest | A logged-in account with limited access — can browse outfits that Users have shared publicly and save them to favorites, but cannot build a wardrobe or generate outfits. |
 
 ### Role-Based Access Matrix
@@ -69,16 +69,17 @@ Many people own plenty of clothes but still struggle every morning to decide wha
 
 ### 6.1 Core Features (must have)
 
-- [ ] User registration and login
-- [ ] Role-based access control (Admin / User / Guest each see different pages)
-- [ ] Data management (Create, Read, Update, Delete on clothing items, outfits, categories, users)
-- [ ] Random outfit generator (User picks a button → system randomly picks one item per category from that User's own wardrobe)
-- [ ] Public outfit gallery with favorites
+- [ 1 ] User registration and login
+- [ 1 ] Role-based access control (Admin / User / Guest each see different pages)
+- [ 1 ] Data management (Create, Read, Update, Delete on clothing items, outfits, categories, users)
+- [ 1 ] Random outfit generator (User picks a button → system randomly picks one item per category from that User's own wardrobe)
+- [ 1 ] Public outfit gallery with favorites
 
 ### 6.2 Extra Features (nice to have)
 
-- [ ] Filter randomizer by occasion/season/color before generating
-- [ ] Outfit history per Member
+- [ 1 ] Admin cannot delete their own account
+- [ 1 ] Image preview for the image URL when adding an item
+- [ 1 ] Outfit history per Member
 
 ### 6.3 Feature Descriptions
 
@@ -107,102 +108,101 @@ Many people own plenty of clothes but still struggle every morning to decide wha
 
 ## 8. Database Design
 
-1. **users**
+1. **user2**
    -id (PK)
    -name
    -email
    -password_hash
    -role ENUM('admin','user','guest')
    -created_at
-2. **category**
+2. **category2**
    -id (PK)
    -name
-3. **subcategory**
+3. **subcategory2**
    -id (PK)
-   -category_id (FK)
+   -category2_id (FK)
    -name
-4. **clothing_item**
+4. **clothing_item2**
    -id (PK)
-   -user_id (FK)
-   -category_id (FK)
-   -subcategory_id (FK)
+   -user2_id (FK)
+   -category2_id (FK)
+   -subcategory2_id (FK)
    -name
    -color
    -material
-   -season
+   -pattern
    -image_path
    -created_at
-5. **outfit**
+5. **outfit2**
    -id (PK)
-   -user_id (FK)
-   -occasion
+   -user2_id (FK)
    -is_public
    -created_at
-6. **outfit_item**
+6. **outfit_item2**
    -id (PK)
-   -outfit_id (FK)
-   -item_id (FK)
-7. **favorite**
+   -outfit2_id (FK)
+   -clothing_item2_id (FK)
+7. **favorite2**
    -id (PK)
-   -user_id (FK)
-   -outfit_id (FK)
+   -user2_id (FK)
+   -outfit2_id (FK)
    -created_at
 
 ### Entity Relationship Diagram (ERD)
 
 ```mermaid
 erDiagram
-    category ||--o{ subcategory : "has"
-    users ||--o{ clothing_item : owns
-    category ||--o{ clothing_item : classifies
-    subcategory ||--o{ clothing_item : classifies
-    users ||--o{ outfit : generates
-    outfit||--o{ outfit_item : contains
-    clothing_item ||--o{ outfit_item : "used in"
-    users ||--o{ favorite : saves
-    outfit||--o{ favorite : "saved as"
+    category2 ||--o{ subcategory2 : "has"
+    user2 ||--o{ clothing_item2 : owns
+    category2 ||--o{ clothing_item2 : classifies
+    subcategory2 ||--o{ clothing_item2: classifies
+    user2 ||--o{ outfit2 : generates
+    outfit2||--o{ outfit_item2 : contains
+    clothing_item2 ||--o{ outfit_item2 : "used in"
+    user2 ||--o{ favorite2 : saves
+    outfit2||--o{ favorite2 : "saved as"
 
-    users {
-        int users_id PK
+    user2 {
+        int user2_id PK
         string name
         string email
         string password_hash
         string role
     }
-    category {
-        int category_id PK
+    category2 {
+        int category2_id PK
         string name
     }
-    subcategory {
-        int subcategory_id PK
-        int category_id FK
+    subcategory2 {
+        int subcategory2_id PK
+        int category2_id FK
         string name
     }
-    clothing_item {
-        int clothing_item_id PK
-        int user_id FK
-        int category_id FK
-        int subcategory_id FK
+    clothing_item2 {
+        int clothing_item2_id PK
+        int user2_id FK
+        int category2_id FK
+        int subcategory2_id FK
         string name
         string color
         string material
         string pattern
         string image_path
     }
-    outfit {
-        int outfit_id PK
-        int user_id FK
+    outfit2 {
+        int outfit2_id PK
+        int user2_id FK
         boolean is_public
     }
-    outfit_item {
-        int outfit_item_id PK
-        int outfit_id FK
-        int item_id FK
+    outfit_item2 {
+        int outfit_item2_id PK
+        int outfit2_id FK
+        int outfit_item2_id FK
     }
-    favorite {
-        int favorite_id PK
-        int user_id FK
-        int outfit_id FK
+    favorite2 {
+        int favorite2_id PK
+        int user2_id FK
+        int outfit2_id FK
     }
 ```
 

@@ -65,6 +65,9 @@ $items = $statement->fetchALL();
         <div class="container">
           <?php foreach ($items as $item): ?>
           <div class="card">
+            <?php if (!empty($item['image_path'])): ?>
+            <img src="<?= htmlspecialchars($item['image_path']) ?>" alt="<?= htmlspecialchars($item['name']) ?>" class="item-img">
+            <?php endif; ?>
             <h3><?= htmlspecialchars($item['name'])?></h3>
             <p><?= htmlspecialchars($item['category2_name'])?><?= $item['subcategory2_name'] ? '/' . htmlspecialchars($item['subcategory2_name']): '' ?></p>
             <p><?= htmlspecialchars($item['color'] ?? '') ?><?= $item['material'] ? ', ' . htmlspecialchars($item['material']) : '' ?><?= $item['pattern'] ? ', ' . htmlspecialchars($item['pattern']) : '' ?></p>
