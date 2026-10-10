@@ -21,11 +21,19 @@ body {
 }
 
 body.background {
-  background-color: #fff5f2; /* 图片没铺到的地方的底色 */
-  background-image: url(background-project.png); /* 路径是相对于 CSS 文件 */
+  background-color: #fff5f2;
+  background-image: url(background-project.png);
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
+  background-attachment: fixed;
+}
+
+body.main-background2 {
+  background-image: url(background2.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
   background-attachment: fixed;
 }
 
@@ -325,4 +333,19 @@ footer {
 .user-btn-delete:hover {
   background: #f06262;
   color: white;
+}
+
+.heart {
+  border: none;
+  background: none;
+  color: #f06262;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.heart:hover {
+  color: #d94e4e;
+  transform: scale(1.1);
 }

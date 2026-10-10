@@ -34,20 +34,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
       }  
     }
 
-    if ($action === 'add_subcategory') {
-        $name = trim($_POST['name']);
-        $categoryID = (int) $_POST['category2_id'];
-        if ($name !== '' && $categoryID > 0){
-            $statement=$db->prepare("INSERT INTO subcategory2 (category2_id, name) VALUES (?, ?)");
-            $statement->execute([$categoryID, $name]);
-        }
-    }
-
-    if ($action === 'delete_subcategory') {
-        $statement=$db->prepare("DELETE FROM subcategory2 WHERE id = ?");
-        $statement->execute([(int) $_POST['subcategory2_id']]);
-    }
-
     header('Location: admincategory.php');
     exit;
 }
@@ -56,11 +42,6 @@ $flash = $_SESSION['flash'] ?? '';
 unset($_SESSION['flash']);
 
 $categories = $db ->query("SELECT * FROM category2 ORDER BY name")->fetchALL();
-$subcategories = $db ->query("SELECT s.*, c.name AS category2_name
-  FROM subcategory2 s
-  JOIN category2 c ON s.category2_id = c.id
-  ORDER BY c.name, s.name
-")->fetchAll();
 ?>
 
 
@@ -114,31 +95,6 @@ $subcategories = $db ->query("SELECT s.*, c.name AS category2_name
           <input type="hidden" name="action" value="add_category">
           <input type="text" name="name" placeholder="New category name" required>
           <button type="submit" class="btn outfit-btn">Add category</button>
-        </form>
-
-        <h2 class="sub">Subcategories</h2>
-        <ul class="list">
-          <?php foreach ($subcategories as $sub): ?>
-            <li>
-              <?= $sub['category2_name'] ?> / <?= $sub['name'] ?>
-              <form method="post" style="display:inline;">
-                <input type="hidden" name="action" value="delete_subcategory">
-                <input type="hidden" name="subcategory2_id" value="<?= $sub['id'] ?>">
-                <button type="submit" class="list-btn" onclick="return confirm('Delete this subcategory?');"><i class="fa-solid fa-trash-can"></i></button>
-              </form>
-            </li>
-          <?php endforeach; ?>
-        </ul>
-
-        <form method="post">
-          <input type="hidden" name="action" value="add_subcategory">
-          <select name="category2_id" class="select" required>
-            <?php foreach ($categories as $category): ?>
-              <option value="<?= $category['id'] ?>"><?= $category['name'] ?></option>
-            <?php endforeach; ?>
-          </select>
-          <input type="text" name="name" placeholder="New subcategory name" required>
-          <button type="submit" class="btn outfit-btn">Add subcategory</button>
         </form>
       </section>
     </main>

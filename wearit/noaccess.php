@@ -10,7 +10,7 @@ require __DIR__ . '/roles.php';
     <title>No Access</title>
     <link rel="stylesheet" href="style2.css" />
 </head>
-<body>
+<body class="main-background2">
     <main>
         <section>
             <div class="card">

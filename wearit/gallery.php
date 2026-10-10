@@ -38,8 +38,9 @@ if (isUser() || isGuest()){
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="style2.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" />
   </head>
-  <body>
+  <body class="main-background2">
     <header>
       <a class="logo" href="#">WearIT</a>
 
@@ -91,7 +92,7 @@ if (isUser() || isGuest()){
             <?php if (isUser() || isGuest()): ?>
               <form method="post" action="favoritetoggle.php">
                 <input type="hidden" name="outfit2_id" value="<?= $outfit['id'] ?>">
-                <button type="submit" class="btn"><?= $isFavorited ? 'Is Favorited' : 'Favorite' ?></button>
+                <button type="submit" class="heart"><?= $isFavorited ? 'Favorited <i class="fa-solid fa-heart"></i>' : 'Favorite <i class="fa-regular fa-heart"></i>' ?></button>
               </form>
             <?php endif; ?>
           </div>

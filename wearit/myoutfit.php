@@ -41,7 +41,7 @@ $itemsStatement = $db->prepare("SELECT ci.name, c.name AS category2_name
     <title>Document</title>
     <link rel="stylesheet" href="style2.css" />
   </head>
-  <body>
+  <body class="main-background2">
     <header>
       <a class="logo" href="#">WearIT</a>
 

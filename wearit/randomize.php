@@ -81,7 +81,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     <title>Document</title>
     <link rel="stylesheet" href="style2.css" />
   </head>
-  <body>
+  <body class="main-background2">
     <header>
       <a class="logo" href="#">WearIT</a>
 
@@ -115,7 +115,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           <div class="card">
             <h3><?= $categoryName ?></h3>
                 <h5><?= $item['name'] ?></h5>
-                <p><?= $item['color'] ?>, <?= $item['pattern'] ?>, <?= $item['material'] ?></p>
+                <p><?= $item['color'] ?><?= $item['pattern'] ?><?= $item['material'] ?></p>
           </div>
           <?php endforeach; ?>
         </div>

@@ -27,7 +27,7 @@ A web application that lets users catalogue their own clothes and, with one clic
 
 ## 3. Problem Statement & Purpose
 
-Many people own plenty of clothes but still struggle every morning to decide what to wear, often defaulting to the same few outfits ("I have nothing to wear" syndrome). WearIt solves this by letting users digitize their wardrobe (photos, category, color, season/occasion tags) and generate a random, ready-to-wear outfit combination at the click of a button. It is aimed at everyday users who want faster morning routines and more variety from clothes they already own. Users can also choose to make a generated outfit public, so the community can browse and get inspiration from each other's random outfits. A lightweight admin manages system-wide reference data (clothing categories, user accounts).
+Many people own plenty of clothes but still struggle every morning to decide what to wear, often defaulting to the same few outfits ("I have nothing to wear" syndrome). WearIt solves this by letting users digitize their wardrobe (image, category, color, material and pattern) and generate a random, ready-to-wear outfit combination at the click of a button. It is aimed at everyday users who want faster morning routines and more variety from clothes they already own. Users can save generated outfits and choose to make them public, so the community can browse and get inspiration from each other's outfits. A lightweight admin manages system-wide reference data (clothing categories) and user accounts.
 
 ---
 
@@ -55,7 +55,7 @@ Many people own plenty of clothes but still struggle every morning to decide wha
 | Feature / Page                         | Admin | User | Guest |
 | -------------------------------------- | :---: | :--: | :---: |
 | Register / Login                       |  ✅   |  ✅  |  ✅   |
-| Manage Categories & Subcategories      |  ✅   |  ❌  |  ❌   |
+| Manage Categorie                       |  ✅   |  ❌  |  ❌   |
 | Manage User Accounts                   |  ✅   |  ❌  |  ❌   |
 | Add/Edit/Delete Own Clothing Items     |  ❌   |  ✅  |  ❌   |
 | Random Outfit Generator (own wardrobe) |  ❌   |  ✅  |  ❌   |
@@ -72,7 +72,7 @@ Many people own plenty of clothes but still struggle every morning to decide wha
 - [ 1 ] User registration and login
 - [ 1 ] Role-based access control (Admin / User / Guest each see different pages)
 - [ 1 ] Data management (Create, Read, Update, Delete on clothing items, outfits, categories, users)
-- [ 1 ] Random outfit generator (User picks a button → system randomly picks one item per category from that User's own wardrobe)
+- [ 1 ] Random outfit generator (User clicks a button → system randomly picks one item per category from that User's own wardrobe)
 - [ 1 ] Public outfit gallery with favorites
 
 ### 6.2 Extra Features (nice to have)
@@ -80,29 +80,32 @@ Many people own plenty of clothes but still struggle every morning to decide wha
 - [ 1 ] Admin cannot delete their own account
 - [ 1 ] Image preview for the image URL when adding an item
 - [ 1 ] Outfit history per Member
+- [ 0 ] Filter randomizer by color before generating
 
 ### 6.3 Feature Descriptions
 
 | Feature                    | Description                                                                                                                          | Role(s)            |
 | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------ |
-| Wardrobe management        | Add a clothing item with image URL, category, subcategory, color, material, pattern, season/occasion tag; edit or delete it          | User               |
-| Random outfit generator    | One-click button that randomly selects one item from each required category from the User's own items and displays it as an "outfit" | User               |
-| Share outfit publicly      | User can mark a generated outfit as public so it appears in the community gallery                                                    | User               |
-| Public outfit gallery      | Browse outfits that Users have shared publicly                                                                                       | Admin, User, Guest |
-| Favorites                  | Save a public outfit to a personal favorites list                                                                                    | User, Guest        |
-| Category & user management | Add/edit/delete clothing categories and subcategories; create accounts and assign roles                                              | Admin              |
+| Registration & login       | Register as a User or Guest with name, email and password (password is stored as a hash). Login redirects each role to its own start page.                                                                                         | Admin, User, Guest |
+| Wardrobe management        | Add a clothing item with image, category, color, material and pattern; edit or delete it.                                                       | User               |
+| Random outfit generator    | One-click button that randomly selects one item from each category (Top, Bottom and Shoes are required; Outerwear is optional) from the User's own items and displays it as an "outfit". The User can then save the outfit.        | User               |
+| My Outfits                 | View all saved outfits, make an outfit public or private, or delete it.                                                                                                                                                            | User               |
+| Public outfit gallery      | Browse outfits that Users have shared publicly, together with the name of the owner.                                                                                                                                               | Admin, User, Guest |
+| Favorites                  | Favorite or un-favorite a public outfit from the gallery, and view or remove favorites on the Favourites page.                                                                                                                     | User, Guest        |
+| Category management        | Add or delete clothing categories. A category that is still used by clothing items cannot be deleted, and a message is shown.                                                                                  | Admin              |
+| User account management    | View all users, change a user's role (admin / user / guest) or delete a user. An admin cannot delete their own account.                                                                                                            | Admin              |
 
 ---
 
 ## 7. Data Management System
 
-| Data / Entity              | Create      | Read               | Update      | Delete      |
-| -------------------------- | ----------- | ------------------ | ----------- | ----------- |
-| Users                      | Admin       | Admin              | Admin       | Admin       |
-| Categories & Subcategories | Admin       | User, Guest, Admin | Admin       | Admin       |
-| Clothing Items             | User        | User, Admin        | User, Admin | User, Admin |
-| Outfits                    | User        | User, Admin        | User        | User, Admin |
-| Favorites                  | User, Guest | User, Guest, Admin | —           | User, Guest |
+| Data / Entity              | Create      | Read                 | Update      | Delete      |
+| -------------------------- | ----------- | -------------------- | ----------- | ----------- |
+| Users                      | User, Guest | Admin                | Admin       | Admin       |
+| Categories                 | Admin       | User,  Admin         | Admin       | Admin       |
+| Clothing Items             | User        | User                 | User        | User        |
+| Outfits                    | User        | User / Guest / Admin | User        | User        |
+| Favorites                  | User, Guest | User, Guest          | —           | User, Guest |
 
 ---
 
@@ -118,89 +121,78 @@ Many people own plenty of clothes but still struggle every morning to decide wha
 2. **category2**
    -id (PK)
    -name
-3. **subcategory2**
-   -id (PK)
-   -category2_id (FK)
-   -name
-4. **clothing_item2**
+3. **clothing_item2**
    -id (PK)
    -user2_id (FK)
    -category2_id (FK)
-   -subcategory2_id (FK)
    -name
    -color
    -material
    -pattern
    -image_path
    -created_at
-5. **outfit2**
+4. **outfit2**
    -id (PK)
    -user2_id (FK)
    -is_public
    -created_at
-6. **outfit_item2**
+5. **outfit_item2**
    -id (PK)
    -outfit2_id (FK)
    -clothing_item2_id (FK)
-7. **favorite2**
+6. **favorite2**
    -id (PK)
    -user2_id (FK)
    -outfit2_id (FK)
-   -created_at
 
 ### Entity Relationship Diagram (ERD)
 
 ```mermaid
 erDiagram
-    category2 ||--o{ subcategory2 : "has"
     user2 ||--o{ clothing_item2 : owns
     category2 ||--o{ clothing_item2 : classifies
-    subcategory2 ||--o{ clothing_item2: classifies
     user2 ||--o{ outfit2 : generates
-    outfit2||--o{ outfit_item2 : contains
+    outfit2 ||--o{ outfit_item2 : contains
     clothing_item2 ||--o{ outfit_item2 : "used in"
     user2 ||--o{ favorite2 : saves
-    outfit2||--o{ favorite2 : "saved as"
+    outfit2 ||--o{ favorite2 : "saved as"
 
     user2 {
-        int user2_id PK
+        int id PK
         string name
         string email
         string password_hash
         string role
+        timestamp created_at
     }
     category2 {
-        int category2_id PK
-        string name
-    }
-    subcategory2 {
-        int subcategory2_id PK
-        int category2_id FK
+        int id PK
         string name
     }
     clothing_item2 {
-        int clothing_item2_id PK
+        int id PK
         int user2_id FK
         int category2_id FK
-        int subcategory2_id FK
         string name
         string color
         string material
         string pattern
         string image_path
+        timestamp created_at
     }
     outfit2 {
-        int outfit2_id PK
+        int id PK
         int user2_id FK
         boolean is_public
+        timestamp created_at
     }
     outfit_item2 {
-        int outfit_item2_id PK
+        int id PK
         int outfit2_id FK
-        int outfit_item2_id FK
+        int clothing_item2_id FK
     }
     favorite2 {
-        int favorite2_id PK
+        int id PK
         int user2_id FK
         int outfit2_id FK
     }
@@ -217,14 +209,17 @@ flowchart LR
     A --> UC3[Manage User Accounts]
     A --> UC4[Browse Public Gallery]
 
-    U([User]) --> UC1
+    U([User]) --> UC0[Register]
+    U --> UC1
     U --> UC5[Manage Own Wardrobe]
     U --> UC6[Randomize Outfit]
+    U --> UC9[Manage My Outfits]
     U --> UC7[Share Outfit Publicly]
     U --> UC4
     U --> UC8[Save Favorite Outfit]
 
-    G([Guest]) --> UC1
+    G([Guest]) --> UC0
+    G --> UC1
     G --> UC4
     G --> UC8
 ```
