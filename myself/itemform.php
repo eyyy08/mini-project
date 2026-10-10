@@ -14,7 +14,14 @@ if (!isUser()) {
 $db = new PDO("mysql:host=localhost;dbname=wearit_2", "root", "");
 
 $itemid = isset($_GET['id']) ? (int) $_GET['id'] :null;
-$item = ['name' => '', 'category2_id' => '', 'subcategory2_id' => '', 'color' => '', 'material' => '', 'pattern' => '', 'image_path' => ''];
+$item = [
+    'name' => '', 
+    'category2_id' => '', 
+    'subcategory2_id' => '', 
+    'color' => '', 
+    'material' => '', 
+    'pattern' => '', 
+    'image_path' => ''];
 $errors =[];
 
 if ($itemid){
@@ -44,8 +51,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($errors)) {
         if($itemid){
-            $statement = $db->prepare("
-            UPDATE clothing_item2
+            $statement = $db->prepare("UPDATE clothing_item2
             SET name = ?, category2_id = ?, subcategory2_id = ?, color = ?, material = ?, pattern = ?, image_path = ?
             WHERE id = ? AND user2_id = ?
             ");
@@ -62,9 +68,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['user']['id'],
             ]);
         } else {
-            $statement = $db->prepare("
-            INSERT INTO clothing_item2 (user2_id, category2_id, subcategory2_id, name, color, material, pattern, image_path) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-            ");
+            $statement = $db->prepare("INSERT INTO clothing_item2 (user2_id, category2_id, subcategory2_id, name, color, material, pattern, image_path) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
             $statement->execute([
                 $_SESSION['user']['id'], $item['category2_id'], $item['subcategory2_id'], $item['name'], $item['color'], $item['material'], $item['pattern'], $item['image_path']
@@ -100,7 +104,7 @@ $subcategories=$db->query("SELECT * FROM subcategory2 ORDER BY name")->fetchALL(
         <a href="randomize.php">Randomize</a>
         <a href="myoutfit.php">My Outfits</a>
         <a href="favorite.php">Favorites</a>
-        <span class="badge"><?= htmlspecialchars($_SESSION['user']['name']) ?> · <?= htmlspecialchars($_SESSION['user']['role']) ?></span>
+        <span class="badge2"><?= $_SESSION['user']['name'] ?> · <?= $_SESSION['user']['role'] ?></span>
         <a href="logout.php">Log Out</a>
       </nav>
     </header>
@@ -110,19 +114,19 @@ $subcategories=$db->query("SELECT * FROM subcategory2 ORDER BY name")->fetchALL(
             <div class="card">
                 <h1><?=$itemid ? 'Edit item' : 'Add a clothing item' ?></h1>
 
-                <?php foreach ($errors as $err): ?>
-                    <p style="color: red;"><?= htmlspecialchars($err) ?></p>
+                <?php foreach ($errors as $error): ?>
+                    <p style="color: red;"><?= $error ?></p>
                 <?php endforeach; ?>
 
                 <form method="post">
                     <label>Name</label>
-                    <input type="text" name="name" value="<?= htmlspecialchars($item['name']) ?>" required> <br><br>
+                    <input type="text" name="name" value="<?= $item['name'] ?>" required> <br><br>
 
                     <label>Category</label>
                     <select class="select" name="category2_id" id="category2_id" required>
                         <option value="">Select a category</option>
                         <?php foreach ($categories as $category):?>
-                            <option value="<?= $category['id'] ?>" <?=$item['category2_id'] == $category['id'] ? 'selected' : ''?>> <?=htmlspecialchars($category['name']) ?></option>
+                            <option value="<?= $category['id'] ?>" <?=$item['category2_id'] == $category['id'] ? 'selected' : ''?>> <?= $category['name'] ?></option>
                         <?php endforeach; ?>
                     </select>
 
@@ -130,21 +134,21 @@ $subcategories=$db->query("SELECT * FROM subcategory2 ORDER BY name")->fetchALL(
                     <select class="select" name="subcategory2_id" id="subcategory2_id">
                         <option value="">None</option>
                         <?php foreach ($subcategories as $subcategory): ?>
-                            <option value="<?= $subcategory['id'] ?>" data-category="<?= $subcategory['category2_id'] ?>" <?= $item['subcategory2_id'] == $subcategory['id'] ? 'selected' : '' ?>> <?= htmlspecialchars($subcategory['name']) ?></option>
+                            <option value="<?= $subcategory['id'] ?>" data-category="<?= $subcategory['category2_id'] ?>" <?= $item['subcategory2_id'] == $subcategory['id'] ? 'selected' : '' ?>> <?= $subcategory['name'] ?></option>
                         <?php endforeach; ?>
                     </select>
 
                     <label>Color</label>
-                    <input type="text" name="color" value="<?=htmlspecialchars($item['color']) ?>"> <br><br>
+                    <input type="text" name="color" value="<?= $item['color'] ?>"> <br><br>
 
                     <label>Material</label>
-                    <input type="text" name="material" value="<?=htmlspecialchars($item['material']) ?>"> <br><br>
+                    <input type="text" name="material" value="<?= $item['material'] ?>"> <br><br>
 
                     <label>Pattern</label>
-                    <input type="text" name="pattern" value="<?=htmlspecialchars($item['pattern']) ?>"> <br><br>
+                    <input type="text" name="pattern" value="<?= $item['pattern'] ?>"> <br><br>
 
                     <label>Image URL</label>
-                    <input type="text" name="image_path" value="<?=htmlspecialchars($item['image_path']) ?>" placeholder="https://..."> <br><br>
+                    <input type="text" name="image_path" value="<?= $item['image_path'] ?>" placeholder="https://..."> <br><br>
 
                     <button class="btn" type="submit"><?= $itemid ? 'Save changes' : 'Add item' ?></button>
                 </form>

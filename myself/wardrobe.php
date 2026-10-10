@@ -14,8 +14,7 @@ if (!isUser()) {
 
 $db = new PDO("mysql:host=localhost;dbname=wearit_2", "root", "");
 
-$statement = $db->prepare("
-SELECT ci.*, c.name AS category2_name, s.name AS subcategory2_name
+$statement = $db->prepare("SELECT ci.*, c.name AS category2_name, s.name AS subcategory2_name
 FROM clothing_item2 ci
 JOIN category2 c ON ci.category2_id = c.id
 LEFT JOIN subcategory2 s ON ci.subcategory2_id = s.id
@@ -46,7 +45,7 @@ $items = $statement->fetchALL();
         <a href="randomize.php">Randomize</a>
         <a href="myoutfit.php">My Outfits</a>
         <a href="favorite.php">Favorites</a>
-        <span class="badge"><?= htmlspecialchars($_SESSION['user']['name']) ?> · <?= htmlspecialchars($_SESSION['user']['role']) ?></span>
+        <span class="badge2"><?= $_SESSION['user']['name'] ?> · <?= $_SESSION['user']['role'] ?></span>
         <a href="logout.php">Log Out</a>
       </nav>
     </header>
@@ -66,11 +65,11 @@ $items = $statement->fetchALL();
           <?php foreach ($items as $item): ?>
           <div class="card">
             <?php if (!empty($item['image_path'])): ?>
-            <img src="<?= htmlspecialchars($item['image_path']) ?>" alt="<?= htmlspecialchars($item['name']) ?>" class="item-img">
+            <img src="<?= $item['image_path'] ?>" alt="<?= $item['name'] ?>" class="item-img">
             <?php endif; ?>
-            <h3><?= htmlspecialchars($item['name'])?></h3>
-            <p><?= htmlspecialchars($item['category2_name'])?><?= $item['subcategory2_name'] ? '/' . htmlspecialchars($item['subcategory2_name']): '' ?></p>
-            <p><?= htmlspecialchars($item['color'] ?? '') ?><?= $item['material'] ? ', ' . htmlspecialchars($item['material']) : '' ?><?= $item['pattern'] ? ', ' . htmlspecialchars($item['pattern']) : '' ?></p>
+            <h3><?= $item['name'] ?></h3>
+            <p><?= $item['category2_name'] ?><?= $item['subcategory2_name'] ? '/' . $item['subcategory2_name'] : '' ?></p>
+            <p><?= $item['color'] ?? '' ?><?= $item['material'] ? ', ' . $item['material'] : '' ?><?= $item['pattern'] ? ', ' . $item['pattern'] : '' ?></p>
 
             <div class="wardrobe-btn">
               <a class="btn outfit-btn" href="itemform.php?id=<?= $item['id'] ?>">Edit</a>

@@ -34,3 +34,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $back = $_SERVER['HTTP_REFERER'] ?? 'gallery.php';
 header('Location: ' . $back);
 exit;
+?>

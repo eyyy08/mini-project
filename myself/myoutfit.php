@@ -51,7 +51,7 @@ $itemsStatement = $db->prepare("SELECT ci.name, c.name AS category2_name
         <a href="randomize.php">Randomize</a>
         <a href="myoutfit.php">My Outfits</a>
         <a href="favorite.php">Favourites</a>
-        <span class="badge"><?= htmlspecialchars($_SESSION['user']['name']) ?> · <?= htmlspecialchars($_SESSION['user']['role']) ?></span>
+        <span class="badge2"><?= $_SESSION['user']['name'] ?> · <?= $_SESSION['user']['role'] ?></span>
         <a href="logout.php">Log Out</a>
       </nav>
     </header>
@@ -75,7 +75,7 @@ $itemsStatement = $db->prepare("SELECT ci.name, c.name AS category2_name
             <div class="card">
                 <ul>
                   <?php foreach ($outfit_items as $oi):?>
-                    <li><?= htmlspecialchars($oi['category2_name']) ?>: <?= htmlspecialchars($oi['name']) ?></li>
+                    <li><?= $oi['category2_name'] ?>: <?= $oi['name'] ?></li>
                   <?php endforeach; ?>
                 </ul>
 

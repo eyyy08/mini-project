@@ -61,7 +61,7 @@ if (isUser() || isGuest()){
           <a href="favorite.php">Favourites</a>
         <?php endif; ?>
 
-        <span class="badge"><?= htmlspecialchars($_SESSION['user']['name']) ?> · <?= htmlspecialchars($_SESSION['user']['role']) ?></span>
+        <span class="badge2"><?= $_SESSION['user']['name'] ?> · <?= $_SESSION['user']['role'] ?></span>
         <a href="logout.php">Log Out</a>
       </nav>
     </header>
@@ -81,10 +81,10 @@ if (isUser() || isGuest()){
                   $isFavorited=in_array($outfit['id'], $favoriteIDs);
             ?>
           <div class="card">
-            <p><span class="light"><?= htmlspecialchars($outfit['owner_name']) ?></span></p>
+            <p><span class="light2"><?= $outfit['owner_name'] ?></span></p>
             <ul>
               <?php foreach ($outfit_items as $oi): ?>
-                  <li><?= htmlspecialchars($oi['category2_name']) ?>: <?= htmlspecialchars($oi['name']) ?></li>
+                  <li><?= $oi['category2_name'] ?>: <?= $oi['name'] ?></li>
                 <?php endforeach; ?>
             </ul>
 

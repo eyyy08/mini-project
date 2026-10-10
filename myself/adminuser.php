@@ -53,7 +53,7 @@ $users = $db->query("SELECT id, name, email, role FROM user2 ORDER BY created_at
         <a href="gallery.php">Gallery</a>
         <a href="admincategory.php">Categories</a>
         <a href="adminuser.php">Users</a>
-        <span class="badge"><?= htmlspecialchars($_SESSION['user']['name']) ?> · <?= htmlspecialchars($_SESSION['user']['role']) ?></span>
+        <span class="badge2"><?= $_SESSION['user']['name'] ?> · <?= $_SESSION['user']['role'] ?></span>
         <a href="logout.php">Log Out</a>
       </nav>
     </header>
@@ -62,16 +62,16 @@ $users = $db->query("SELECT id, name, email, role FROM user2 ORDER BY created_at
       <section id="favorite">
         <h1>Manage Users</h1>
 
-        <table border="1" cellpadding="8" style="width:100%; background:#fff; border-collapse: collapse;">
+        <table class="table">
           <thead>
             <tr><th>Name</th><th>Email</th><th>Role</th><th>Actions</th></tr>
           </thead>
           <tbody>
             <?php foreach ($users as $u): ?>
             <tr>
-              <td><?= htmlspecialchars($u['name']) ?></td>
-              <td><?= htmlspecialchars($u['email']) ?></td>
-              <td><?= htmlspecialchars($u['role']) ?></td>
+              <td><?= $u['name'] ?></td>
+              <td><?= $u['email'] ?></td>
+              <td><?= $u['role'] ?></td>
               <td>
                 <form method="post" style="display:inline;">
                   <input type="hidden" name="action" value="change_role">
@@ -81,14 +81,14 @@ $users = $db->query("SELECT id, name, email, role FROM user2 ORDER BY created_at
                     <option value="user" <?= $u['role'] === 'user' ? 'selected' : '' ?>>user</option>
                     <option value="guest"  <?= $u['role'] === 'guest'  ? 'selected' : '' ?>>guest</option>
                   </select>
-                  <button type="submit">Update</button>
+                  <button type="submit" class="user-btn">Update</button>
                 </form>
 
                 <?php if ((int)$u['id'] !== (int) $_SESSION['user']['id']): ?>
                   <form method="post" style="display:inline;">
                     <input type="hidden" name="action" value="delete_user">
                     <input type="hidden" name="user2_id" value="<?= $u['id'] ?>">
-                    <button type="submit" onclick="return confirm('Delete this user?');">Delete</button>
+                    <button type="submit" class="user-btn user-btn-delete" onclick="return confirm('Delete this user?');">Delete</button>
                   </form>
                 <?php endif; ?>
               </td>

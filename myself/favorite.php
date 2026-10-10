@@ -53,7 +53,7 @@ $itemsStatement = $db->prepare("SELECT ci.name, c.name AS category2_name
         <?php endif; ?>
 
         <a href="favorite.php">Favourites</a>
-        <span class="badge"><?= htmlspecialchars($_SESSION['user']['name']) ?> · <?= htmlspecialchars($_SESSION['user']['role']) ?></span>
+        <span class="badge2"><?= $_SESSION['user']['name'] ?> · <?= $_SESSION['user']['role'] ?></span>
         <a href="logout.php">Log Out</a>
       </nav>
     </header>
@@ -74,10 +74,10 @@ $itemsStatement = $db->prepare("SELECT ci.name, c.name AS category2_name
                   $outfit_items = $itemsStatement->fetchAll();
             ?>
           <div class="card2">
-            <p><span class="light">Shared by <?= htmlspecialchars($outfit['owner_name']) ?></span></p>
+            <p><span class="light2">Shared by <?= $outfit['owner_name'] ?></span></p>
             <ul>
               <?php foreach ($outfit_items as $oi): ?>
-                  <li><?= htmlspecialchars($oi['category2_name']) ?>: <?= htmlspecialchars($oi['name']) ?></li>
+                  <li><?= $oi['category2_name'] ?>: <?= $oi['name'] ?></li>
                 <?php endforeach; ?>
             </ul>
 

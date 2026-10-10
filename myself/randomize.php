@@ -91,7 +91,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         <a href="randomize.php">Randomize</a>
         <a href="myoutfit.php">My Outfits</a>
         <a href="favorite.php">Favourites</a>
-        <span class="badge"><?= htmlspecialchars($_SESSION['user']['name']) ?> · <?= htmlspecialchars($_SESSION['user']['role']) ?></span>
+        <span class="badge2"><?= $_SESSION['user']['name'] ?> · <?= $_SESSION['user']['role'] ?></span>
         <a href="logout.php">Log Out</a>
       </nav>
     </header>
@@ -106,16 +106,16 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         </form>
 
         <?php if ($message): ?>
-          <p style="color: red;"><?= htmlspecialchars($message) ?></p>
+          <p style="color: red;"><?= $message ?></p>
         <?php endif; ?>
 
         <?php if(!empty($outfit)):?>
         <div class="container">
           <?php foreach ($outfit as $categoryName =>$item):?>
           <div class="card">
-            <h3><?= htmlspecialchars($categoryName) ?></h3>
-                <h5><?= htmlspecialchars($item['name']) ?></h5>
-                <p><?= htmlspecialchars($item['color']) ?>, <?= htmlspecialchars($item['pattern']) ?>, <?= htmlspecialchars($item['material']) ?></p>
+            <h3><?= $categoryName ?></h3>
+                <h5><?= $item['name'] ?></h5>
+                <p><?= $item['color'] ?>, <?= $item['pattern'] ?>, <?= $item['material'] ?></p>
           </div>
           <?php endforeach; ?>
         </div>

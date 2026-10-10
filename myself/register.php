@@ -61,15 +61,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <h1>Create an account</h1>
 
           <?php foreach ($errors as $error): ?>
-            <p style="color: red;"><?= htmlspecialchars($error)?></p>
+            <p style="color: red;"><?= $error ?></p>
           <?php endforeach; ?>
 
           <form method="post">
             <label for="name">Name</label>
-            <input type="text" id="name" name="name" value="<?= htmlspecialchars($name) ?>" required /><br /><br />
+            <input type="text" id="name" name="name" value="<?= $name ?>" required /><br /><br />
 
             <label for="email">Email</label>
-            <input type="email" id="email" name="email" value="<?= htmlspecialchars($email) ?>" required /><br /><br />
+            <input type="email" id="email" name="email" value="<?= $email ?>" required /><br /><br />
 
             <label for="password">Password</label>
             <input type="password" id="password" name="password" required />

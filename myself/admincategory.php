@@ -72,6 +72,9 @@ $subcategories = $db ->query("SELECT s.*, c.name AS category2_name
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style2.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" />
+
+    
 </head>
 <body>
     <header>
@@ -80,7 +83,7 @@ $subcategories = $db ->query("SELECT s.*, c.name AS category2_name
         <a href="gallery.php">Gallery</a>
         <a href="admincategory.php">Categories</a>
         <a href="adminuser.php">Users</a>
-        <span class="badge"><?= htmlspecialchars($_SESSION['user']['name']) ?> · <?= htmlspecialchars($_SESSION['user']['role']) ?></span>
+        <span class="badge2"><?= $_SESSION['user']['name'] ?> · <?= $_SESSION['user']['role'] ?></span>
         <a href="logout.php">Log Out</a>
       </nav>
     </header>
@@ -90,18 +93,18 @@ $subcategories = $db ->query("SELECT s.*, c.name AS category2_name
         <h1>Manage Categories</h1>
 
         <?php if ($flash): ?>
-          <p style="color: red;"><?= htmlspecialchars($flash) ?></p>
+          <p style="color: red;"><?= $flash ?></p>
         <?php endif; ?>
 
-        <h3>Categories</h3>
-        <ul>
+        <h2 class="category">Categories</h2>
+        <ul class="list">
           <?php foreach ($categories as $category): ?>
             <li>
-              <?= htmlspecialchars($category['name']) ?>
+              <?= $category['name'] ?>
               <form method="post" style="display:inline;">
                 <input type="hidden" name="action" value="delete_category">
                 <input type="hidden" name="category2_id" value="<?= $category['id'] ?>">
-                <button type="submit" onclick="return confirm('Delete this category?');">Delete</button>
+                <button type="submit" class="list-btn" onclick="return confirm('Delete this category?');"><i class="fa-solid fa-trash-can"></i></button>
               </form>
             </li>
           <?php endforeach; ?>
@@ -113,15 +116,15 @@ $subcategories = $db ->query("SELECT s.*, c.name AS category2_name
           <button type="submit" class="btn outfit-btn">Add category</button>
         </form>
 
-        <h3>Subcategories</h3>
-        <ul>
+        <h2 class="sub">Subcategories</h2>
+        <ul class="list">
           <?php foreach ($subcategories as $sub): ?>
             <li>
-              <?= htmlspecialchars($sub['category2_name']) ?> / <?= htmlspecialchars($sub['name']) ?>
+              <?= $sub['category2_name'] ?> / <?= $sub['name'] ?>
               <form method="post" style="display:inline;">
                 <input type="hidden" name="action" value="delete_subcategory">
                 <input type="hidden" name="subcategory2_id" value="<?= $sub['id'] ?>">
-                <button type="submit" onclick="return confirm('Delete this subcategory?');">Delete</button>
+                <button type="submit" class="list-btn" onclick="return confirm('Delete this subcategory?');"><i class="fa-solid fa-trash-can"></i></button>
               </form>
             </li>
           <?php endforeach; ?>
@@ -131,7 +134,7 @@ $subcategories = $db ->query("SELECT s.*, c.name AS category2_name
           <input type="hidden" name="action" value="add_subcategory">
           <select name="category2_id" class="select" required>
             <?php foreach ($categories as $category): ?>
-              <option value="<?= $category['id'] ?>"><?= htmlspecialchars($category['name']) ?></option>
+              <option value="<?= $category['id'] ?>"><?= $category['name'] ?></option>
             <?php endforeach; ?>
           </select>
           <input type="text" name="name" placeholder="New subcategory name" required>
@@ -143,5 +146,6 @@ $subcategories = $db ->query("SELECT s.*, c.name AS category2_name
     <footer>
       <span class="foot">WearIT © 2026 All rights reserved.</span>
     </footer>
+
 </body>
 </html>

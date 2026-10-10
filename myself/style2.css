@@ -42,7 +42,7 @@ header {
   z-index: 10;
 }
 
-.badge {
+.badge2 {
   color: #f4dee5;
 }
 
@@ -81,9 +81,13 @@ section {
   width: 100%;
   max-width: 420px;
   background: #fff;
-  padding: 2rem;
+  padding: 2rem 2rem 1.5rem 2rem;
   border-radius: 20px;
   box-shadow: 0 12px 40px rgba(240, 98, 98, 0.15);
+}
+
+.card p {
+  margin-top: 0;
 }
 
 .card h1 {
@@ -197,14 +201,13 @@ footer {
 .card2 {
   width: 100%;
   background: #fff;
-  padding: 2rem;
+  padding: 1.5rem;
   border-radius: 20px;
   box-shadow: 0 12px 40px rgba(240, 98, 98, 0.15);
 }
 
-.card2 ul {
-  margin: 0 0 1.5rem;
-  padding-left: 1rem;
+.card2 p {
+  margin-top: 0;
 }
 
 .light {
@@ -212,8 +215,14 @@ footer {
   font-size: 0.85rem;
 }
 
+.light2 {
+  color: #a38f96;
+  font-size: 1rem;
+}
+
 .outfit-btn {
   width: fit-content;
+  margin: 1rem 0;
 }
 
 .randomize1-btn {
@@ -232,4 +241,88 @@ footer {
   object-fit: cover;
   border-radius: 12px;
   margin-bottom: 1rem;
+}
+
+.category {
+  margin: 0;
+}
+
+.sub {
+  margin-bottom: 0;
+}
+
+.list {
+  max-width: 20rem;
+  font-size: 1.05rem;
+}
+
+.list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.5rem;
+}
+
+.list-btn {
+  font-size: 1rem;
+  border: 0;
+  cursor: pointer;
+  transition:
+    transform 0.15s,
+    box-shadow 0.15;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+}
+
+.list-btn:hover {
+  transform: translateY(-2px);
+}
+
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #fff;
+  border: 2px solid #f0dcd6;
+  border-radius: 8px;
+}
+
+.table th,
+.table td {
+  padding: 1rem 1.2rem;
+  text-align: left;
+  border: 1px solid #f0dcd6;
+}
+
+.table th {
+  background: #fff5f2;
+  font-size: 0.9rem;
+}
+
+.user-btn {
+  padding: 0.5rem 1rem;
+  border: 0;
+  border-radius: 10px;
+  background: #f06262;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.user-btn:hover {
+  background: #d94e4e;
+}
+
+.user-btn-delete {
+  background: transparent;
+  color: #f06262;
+  border: 2px solid #f06262;
+}
+
+.user-btn-delete:hover {
+  background: #f06262;
+  color: white;
 }
