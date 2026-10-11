@@ -81,7 +81,7 @@ $categories=$db->query("SELECT * FROM category2 ORDER BY name")->fetchALL();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>WearIT</title>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" />
     <link rel="stylesheet" href="style2.css" />
 </head>
@@ -95,7 +95,7 @@ $categories=$db->query("SELECT * FROM category2 ORDER BY name")->fetchALL();
         <a href="randomize.php">Randomize</a>
         <a href="myoutfit.php">My Outfits</a>
         <a href="favorite.php">Favorites</a>
-        <span class="badge2"><?= $_SESSION['user']['name'] ?> · <?= $_SESSION['user']['role'] ?></span>
+        <span class="badge2"><?= htmlspecialchars($_SESSION['user']['name']) ?> · <?= htmlspecialchars($_SESSION['user']['role']) ?></span>
         <a href="logout.php">Log Out</a>
       </nav>
     </header>
@@ -106,32 +106,32 @@ $categories=$db->query("SELECT * FROM category2 ORDER BY name")->fetchALL();
                 <h1><?=$itemid ? 'Edit item' : 'Add a clothing item' ?></h1>
 
                 <?php foreach ($errors as $error): ?>
-                    <p style="color: red;"><?= $error ?></p>
+                    <p style="color: red;"><?= htmlspecialchars($error) ?></p>
                 <?php endforeach; ?>
 
                 <form method="post">
                     <label>Name</label>
-                    <input type="text" name="name" value="<?= $item['name'] ?>" required> <br><br>
+                    <input type="text" name="name" value="<?= htmlspecialchars($item['name']) ?>" required> <br><br>
 
                     <label>Category</label>
                     <select class="select" name="category2_id" id="category2_id" required>
                         <option value="">Select a category</option>
                         <?php foreach ($categories as $category):?>
-                            <option value="<?= $category['id'] ?>" <?=$item['category2_id'] == $category['id'] ? 'selected' : ''?>> <?= $category['name'] ?></option>
+                            <option value="<?= $category['id'] ?>" <?=$item['category2_id'] == $category['id'] ? 'selected' : ''?>> <?= htmlspecialchars($category['name']) ?></option>
                         <?php endforeach; ?>
                     </select>
 
                     <label>Color</label>
-                    <input type="text" name="color" value="<?= $item['color'] ?>"> <br><br>
+                    <input type="text" name="color" value="<?= htmlspecialchars($item['color']) ?>"> <br><br>
 
                     <label>Material</label>
-                    <input type="text" name="material" value="<?= $item['material'] ?>"> <br><br>
+                    <input type="text" name="material" value="<?= htmlspecialchars($item['material']) ?>"> <br><br>
 
                     <label>Pattern</label>
-                    <input type="text" name="pattern" value="<?= $item['pattern'] ?>"> <br><br>
+                    <input type="text" name="pattern" value="<?= htmlspecialchars($item['pattern']) ?>"> <br><br>
 
                     <label>Image URL</label>
-                    <input type="text" name="image_path" value="<?= $item['image_path'] ?>" placeholder="https://..."> <br><br>
+                    <input type="text" name="image_path" value="<?= htmlspecialchars($item['image_path']) ?>" placeholder="https://..."> <br><br>
 
                     <button class="btn" type="submit"><?= $itemid ? 'Save changes' : 'Add item' ?></button>
                 </form>

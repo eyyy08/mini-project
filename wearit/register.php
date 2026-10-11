@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Document</title>
+    <title>WearIT</title>
     <link rel="stylesheet" href="style2.css" />
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" />
   </head>
@@ -61,15 +61,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <h1>Create an account</h1>
 
           <?php foreach ($errors as $error): ?>
-            <p style="color: red;"><?= $error ?></p>
+            <p style="color: red;"><?= htmlspecialchars($error) ?></p>
           <?php endforeach; ?>
 
           <form method="post">
             <label for="name">Name</label>
-            <input type="text" id="name" name="name" value="<?= $name ?>" required /><br /><br />
+            <input type="text" id="name" name="name" value="<?= htmlspecialchars($name) ?>" required /><br /><br />
 
             <label for="email">Email</label>
-            <input type="email" id="email" name="email" value="<?= $email ?>" required /><br /><br />
+            <input type="email" id="email" name="email" value="<?= htmlspecialchars($email) ?>" required /><br /><br />
 
             <label for="password">Password</label>
             <input type="password" id="password" name="password" required />

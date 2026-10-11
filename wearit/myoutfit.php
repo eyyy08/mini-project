@@ -38,7 +38,7 @@ $itemsStatement = $db->prepare("SELECT ci.name, c.name AS category2_name
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>WearIT</title>
     <link rel="stylesheet" href="style2.css" />
   </head>
   <body class="main-background2">
@@ -50,8 +50,8 @@ $itemsStatement = $db->prepare("SELECT ci.name, c.name AS category2_name
         <a href="wardrobe.php">My Wardrobe</a>
         <a href="randomize.php">Randomize</a>
         <a href="myoutfit.php">My Outfits</a>
-        <a href="favorite.php">Favourites</a>
-        <span class="badge2"><?= $_SESSION['user']['name'] ?> · <?= $_SESSION['user']['role'] ?></span>
+        <a href="favorite.php">Favorites</a>
+        <span class="badge2"><?= htmlspecialchars($_SESSION['user']['name']) ?> · <?= htmlspecialchars($_SESSION['user']['role']) ?></span>
         <a href="logout.php">Log Out</a>
       </nav>
     </header>
@@ -75,7 +75,7 @@ $itemsStatement = $db->prepare("SELECT ci.name, c.name AS category2_name
             <div class="card">
                 <ul>
                   <?php foreach ($outfit_items as $oi):?>
-                    <li><?= $oi['category2_name'] ?>: <?= $oi['name'] ?></li>
+                    <li><?= htmlspecialchars($oi['category2_name']) ?>: <?= htmlspecialchars($oi['name']) ?></li>
                   <?php endforeach; ?>
                 </ul>
 

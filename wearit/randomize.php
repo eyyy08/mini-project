@@ -78,7 +78,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>WearIT</title>
     <link rel="stylesheet" href="style2.css" />
   </head>
   <body class="main-background2">
@@ -90,8 +90,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         <a href="wardrobe.php">My Wardrobe</a>
         <a href="randomize.php">Randomize</a>
         <a href="myoutfit.php">My Outfits</a>
-        <a href="favorite.php">Favourites</a>
-        <span class="badge2"><?= $_SESSION['user']['name'] ?> · <?= $_SESSION['user']['role'] ?></span>
+        <a href="favorite.php">Favorites</a>
+        <span class="badge2"><?= htmlspecialchars($_SESSION['user']['name']) ?> · <?= htmlspecialchars($_SESSION['user']['role']) ?></span>
         <a href="logout.php">Log Out</a>
       </nav>
     </header>
@@ -114,11 +114,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           <?php foreach ($outfit as $categoryName =>$item):?>
           <div class="card">
             <?php if (!empty($item['image_path'])): ?>
-              <img src="<?= $item['image_path'] ?>" alt="<?= $item['name'] ?>" class="img">
+              <img src="<?= htmlspecialchars($item['image_path']) ?>" alt="<?= htmlspecialchars($item['name']) ?>" class="img">
             <?php endif; ?>
-            <h3><?= $categoryName ?></h3>
-            <h5><?= $item['name'] ?></h5>
-            <p><?= $item['color'] ?><?= $item['pattern'] ?><?= $item['material'] ?></p>
+            <h3><?= htmlspecialchars($categoryName) ?></h3>
+            <h5><?= htmlspecialchars($item['name']) ?></h5>
+            <?php $details = array_filter([$item['color'], $item['pattern'], $item['material']]); ?>
+            <p><?= htmlspecialchars(implode(', ', $details)) ?></p>
           </div>
           <?php endforeach; ?>
         </div>

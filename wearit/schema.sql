@@ -36,7 +36,7 @@ name varchar(255) not null,
 color varchar(50),
 material varchar(50),
 pattern varchar(50),
-image_path varchar(255),
+image_path text,
 created_at timestamp default current_timestamp,
 foreign key (user2_id) references user2(id) on delete cascade,
 foreign key (category2_id) references category2(id)

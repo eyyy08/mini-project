@@ -36,7 +36,7 @@ if (isUser() || isGuest()){
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>WearIT</title>
     <link rel="stylesheet" href="style2.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" />
   </head>
@@ -59,10 +59,10 @@ if (isUser() || isGuest()){
         <?php endif; ?>
 
         <?php if (isUser() || isGuest()): ?>
-          <a href="favorite.php">Favourites</a>
+          <a href="favorite.php">Favorites</a>
         <?php endif; ?>
 
-        <span class="badge2"><?= $_SESSION['user']['name'] ?> · <?= $_SESSION['user']['role'] ?></span>
+        <span class="badge2"><?= htmlspecialchars($_SESSION['user']['name']) ?> · <?= htmlspecialchars($_SESSION['user']['role']) ?></span>
         <a href="logout.php">Log Out</a>
       </nav>
     </header>
@@ -82,10 +82,10 @@ if (isUser() || isGuest()){
                   $isFavorited=in_array($outfit['id'], $favoriteIDs);
             ?>
           <div class="card">
-            <p><span class="light2"><?= $outfit['owner_name'] ?></span></p>
+            <p><span class="light2"><?= htmlspecialchars($outfit['owner_name']) ?></span></p>
             <ul>
               <?php foreach ($outfit_items as $oi): ?>
-                  <li><?= $oi['category2_name'] ?>: <?= $oi['name'] ?></li>
+                  <li><?= htmlspecialchars($oi['category2_name']) ?>: <?= htmlspecialchars($oi['name']) ?></li>
                 <?php endforeach; ?>
             </ul>
 

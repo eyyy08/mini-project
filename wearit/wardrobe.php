@@ -31,7 +31,7 @@ $items = $statement->fetchALL();
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>WearIT</title>
     <link rel="stylesheet" href="style2.css" />
   </head>
   <body class="main-background2">
@@ -44,7 +44,7 @@ $items = $statement->fetchALL();
         <a href="randomize.php">Randomize</a>
         <a href="myoutfit.php">My Outfits</a>
         <a href="favorite.php">Favorites</a>
-        <span class="badge2"><?= $_SESSION['user']['name'] ?> · <?= $_SESSION['user']['role'] ?></span>
+        <span class="badge2"><?= htmlspecialchars($_SESSION['user']['name']) ?> · <?= htmlspecialchars($_SESSION['user']['role']) ?></span>
         <a href="logout.php">Log Out</a>
       </nav>
     </header>
@@ -64,11 +64,12 @@ $items = $statement->fetchALL();
           <?php foreach ($items as $item): ?>
           <div class="card">
             <?php if (!empty($item['image_path'])): ?>
-            <img src="<?= $item['image_path'] ?>" alt="<?= $item['name'] ?>" class="img">
+            <img src="<?= htmlspecialchars($item['image_path'] ?? '') ?>" alt="<?= htmlspecialchars($item['name']) ?>" class="img">
             <?php endif; ?>
-            <h3><?= $item['name'] ?></h3>
-            <p><?= $item['category2_name'] ?></p>
-            <p><?= $item['color'] ?? '' ?><?= $item['material'] ? ', ' . $item['material'] : '' ?><?= $item['pattern'] ? ', ' . $item['pattern'] : '' ?></p>
+            <h3><?= htmlspecialchars($item['name']) ?></h3>
+            <p><?= htmlspecialchars($item['category2_name']) ?></p>
+            <?php $details = array_filter([$item['color'], $item['material'], $item['pattern']]); ?>
+            <p><?= htmlspecialchars(implode(', ', $details)) ?></p>
 
             <div class="wardrobe-btn">
               <a class="btn outfit-btn" href="itemform.php?id=<?= $item['id'] ?>">Edit</a>

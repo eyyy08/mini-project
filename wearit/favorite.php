@@ -19,6 +19,7 @@ $statement = $db->prepare("SELECT o.*, u.name AS owner_name
   JOIN outfit2 o ON f.outfit2_id = o.id
   JOIN user2 u ON o.user2_id = u.id
   WHERE f.user2_id = ? AND o.is_public = 1
+  ORDER BY f.id DESC
 ");
 $statement->execute([$_SESSION['user']['id']]);
 $outfits = $statement->fetchAll();
@@ -36,7 +37,7 @@ $itemsStatement = $db->prepare("SELECT ci.name, c.name AS category2_name
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>WearIT</title>
     <link rel="stylesheet" href="style2.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" />
   </head>
@@ -53,8 +54,8 @@ $itemsStatement = $db->prepare("SELECT ci.name, c.name AS category2_name
           <a href="myoutfit.php">My Outfits</a>
         <?php endif; ?>
 
-        <a href="favorite.php">Favourites</a>
-        <span class="badge2"><?= $_SESSION['user']['name'] ?> · <?= $_SESSION['user']['role'] ?></span>
+        <a href="favorite.php">Favorites</a>
+        <span class="badge2"><?= htmlspecialchars($_SESSION['user']['name']) ?> · <?= htmlspecialchars($_SESSION['user']['role']) ?></span>
         <a href="logout.php">Log Out</a>
       </nav>
     </header>
@@ -65,7 +66,7 @@ $itemsStatement = $db->prepare("SELECT ci.name, c.name AS category2_name
 
         <?php if (empty($outfits)): ?>
           <p class="switch">
-            No favourites yet. Head to the <a href="gallery.php">gallery</a> and favourite some outfits.
+            No favorites yet. Head to the <a href="gallery.php">gallery</a> and favorite some outfits.
           </p>
         <?php endif; ?>
 
@@ -75,10 +76,10 @@ $itemsStatement = $db->prepare("SELECT ci.name, c.name AS category2_name
                   $outfit_items = $itemsStatement->fetchAll();
             ?>
           <div class="card2">
-            <p><span class="light2">Shared by <?= $outfit['owner_name'] ?></span></p>
+            <p><span class="light2">Shared by <?= htmlspecialchars($outfit['owner_name']) ?></span></p>
             <ul>
               <?php foreach ($outfit_items as $oi): ?>
-                  <li><?= $oi['category2_name'] ?>: <?= $oi['name'] ?></li>
+                  <li><?= htmlspecialchars($oi['category2_name']) ?>: <?= htmlspecialchars($oi['name']) ?></li>
                 <?php endforeach; ?>
             </ul>
 

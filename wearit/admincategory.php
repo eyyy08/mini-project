@@ -18,11 +18,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $action = $_POST['action'];
 
     if($action === 'add_category') {
-        $name = trim($_POST['name']);
-        if ($name !== ''){
-            $statement=$db->prepare("INSERT INTO category2 (name) VALUES (?)");
-            $statement->execute([$name]);
-        }
+    $name = trim($_POST['name']);
+      if ($name !== ''){
+          try {
+              $statement=$db->prepare("INSERT INTO category2 (name) VALUES (?)");
+              $statement->execute([$name]);
+          } catch (PDOException $e) {
+              $_SESSION['flash'] = 'This category already exists.';
+          }
+      }
     }
 
     if ($action === 'delete_category'){
@@ -51,7 +55,7 @@ $categories = $db ->query("SELECT * FROM category2 ORDER BY name")->fetchALL();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>WearIT</title>
     <link rel="stylesheet" href="style2.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" />
 
@@ -64,7 +68,7 @@ $categories = $db ->query("SELECT * FROM category2 ORDER BY name")->fetchALL();
         <a href="gallery.php">Gallery</a>
         <a href="admincategory.php">Categories</a>
         <a href="adminuser.php">Users</a>
-        <span class="badge2"><?= $_SESSION['user']['name'] ?> · <?= $_SESSION['user']['role'] ?></span>
+        <span class="badge2"><?= htmlspecialchars($_SESSION['user']['name']) ?> · <?= htmlspecialchars($_SESSION['user']['role']) ?></span>
         <a href="logout.php">Log Out</a>
       </nav>
     </header>
@@ -74,14 +78,14 @@ $categories = $db ->query("SELECT * FROM category2 ORDER BY name")->fetchALL();
         <h1>Manage Categories</h1>
 
         <?php if ($flash): ?>
-          <p style="color: red;"><?= $flash ?></p>
+          <p style="color: red;"><?= htmlspecialchars($flash) ?></p>
         <?php endif; ?>
 
         <h2 class="category">Categories</h2>
         <ul class="list">
           <?php foreach ($categories as $category): ?>
             <li>
-              <?= $category['name'] ?>
+              <?= htmlspecialchars($category['name']) ?>
               <form method="post" style="display:inline;">
                 <input type="hidden" name="action" value="delete_category">
                 <input type="hidden" name="category2_id" value="<?= $category['id'] ?>">

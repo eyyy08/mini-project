@@ -43,7 +43,7 @@ $users = $db->query("SELECT id, name, email, role FROM user2 ORDER BY created_at
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>WearIT</title>
     <link rel="stylesheet" href="style2.css" />
   </head>
   <body>
@@ -53,7 +53,7 @@ $users = $db->query("SELECT id, name, email, role FROM user2 ORDER BY created_at
         <a href="gallery.php">Gallery</a>
         <a href="admincategory.php">Categories</a>
         <a href="adminuser.php">Users</a>
-        <span class="badge2"><?= $_SESSION['user']['name'] ?> · <?= $_SESSION['user']['role'] ?></span>
+        <span class="badge2"><?= htmlspecialchars($_SESSION['user']['name']) ?> · <?= htmlspecialchars($_SESSION['user']['role']) ?></span>
         <a href="logout.php">Log Out</a>
       </nav>
     </header>
@@ -69,9 +69,9 @@ $users = $db->query("SELECT id, name, email, role FROM user2 ORDER BY created_at
           <tbody>
             <?php foreach ($users as $u): ?>
             <tr>
-              <td><?= $u['name'] ?></td>
-              <td><?= $u['email'] ?></td>
-              <td><?= $u['role'] ?></td>
+              <td><?= htmlspecialchars($u['name']) ?></td>
+              <td><?= htmlspecialchars($u['email']) ?></td>
+              <td><?= htmlspecialchars($u['role']) ?></td>
               <td>
                 <form method="post" style="display:inline;">
                   <input type="hidden" name="action" value="change_role">

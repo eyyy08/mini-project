@@ -278,7 +278,7 @@ footer {
   cursor: pointer;
   transition:
     transform 0.15s,
-    box-shadow 0.15;
+    box-shadow 0.15s;
   display: inline-block;
   text-align: center;
   text-decoration: none;

@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Document</title>
+    <title>WearIT</title>
     <link rel="stylesheet" href="style2.css" />
   </head>
   <body class="background">
@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
           <h1>Login</h1>
 
           <?php if ($error): ?>
-            <p style="color: red;"><?= $error ?></p>
+            <p style="color: red;"><?= htmlspecialchars($error) ?></p>
           <?php endif; ?>
 
           <form method="post">
