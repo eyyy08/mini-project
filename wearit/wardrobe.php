@@ -64,7 +64,7 @@ $items = $statement->fetchALL();
           <?php foreach ($items as $item): ?>
           <div class="card">
             <?php if (!empty($item['image_path'])): ?>
-            <img src="<?= $item['image_path'] ?>" alt="<?= $item['name'] ?>" class="item-img">
+            <img src="<?= $item['image_path'] ?>" alt="<?= $item['name'] ?>" class="img">
             <?php endif; ?>
             <h3><?= $item['name'] ?></h3>
             <p><?= $item['category2_name'] ?></p>

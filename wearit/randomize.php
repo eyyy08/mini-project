@@ -113,9 +113,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         <div class="container">
           <?php foreach ($outfit as $categoryName =>$item):?>
           <div class="card">
+            <?php if (!empty($item['image_path'])): ?>
+              <img src="<?= $item['image_path'] ?>" alt="<?= $item['name'] ?>" class="img">
+            <?php endif; ?>
             <h3><?= $categoryName ?></h3>
-                <h5><?= $item['name'] ?></h5>
-                <p><?= $item['color'] ?><?= $item['pattern'] ?><?= $item['material'] ?></p>
+            <h5><?= $item['name'] ?></h5>
+            <p><?= $item['color'] ?><?= $item['pattern'] ?><?= $item['material'] ?></p>
           </div>
           <?php endforeach; ?>
         </div>
