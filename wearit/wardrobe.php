@@ -33,7 +33,6 @@ $items = $statement->fetchALL();
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>WearIT</title>
     <link rel="stylesheet" href="style2.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" />
   </head>
   <body class="main-background2">
     <header>
