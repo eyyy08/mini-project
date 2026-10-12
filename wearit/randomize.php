@@ -91,7 +91,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         <a href="randomize.php">Randomize</a>
         <a href="myoutfit.php">My Outfits</a>
         <a href="favorite.php">Favorites</a>
-        <span class="badge2"><?= htmlspecialchars($_SESSION['user']['name']) ?> · <?= htmlspecialchars($_SESSION['user']['role']) ?></span>
+        <span class="badge">
+        <span class="username"><?= htmlspecialchars($_SESSION['user']['name']) ?></span> 
+        <span class="role"><?= htmlspecialchars($_SESSION['user']['role']) ?></span>
+        </span>
         <a href="logout.php">Log Out</a>
       </nav>
     </header>

@@ -50,8 +50,25 @@ header {
   z-index: 10;
 }
 
-.badge2 {
-  color: #f4dee5;
+.badge{
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.username {
+  border: 1px solid #f4dee5;
+  border-radius: 5rem;
+  background-color: #f4dee5;
+  padding: 0 0.5rem;
+  color: #ff9f80;
+}
+
+.role {
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
 .logo {

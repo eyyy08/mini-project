@@ -68,7 +68,10 @@ $categories = $db ->query("SELECT * FROM category2 ORDER BY name")->fetchALL();
         <a href="gallery.php">Gallery</a>
         <a href="admincategory.php">Categories</a>
         <a href="adminuser.php">Users</a>
-        <span class="badge2"><?= htmlspecialchars($_SESSION['user']['name']) ?> · <?= htmlspecialchars($_SESSION['user']['role']) ?></span>
+        <span class="badge">
+        <span class="username"><?= htmlspecialchars($_SESSION['user']['name']) ?></span> 
+        <span class="role"><?= htmlspecialchars($_SESSION['user']['role']) ?></span>
+        </span>
         <a href="logout.php">Log Out</a>
       </nav>
     </header>

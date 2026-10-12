@@ -33,6 +33,7 @@ $items = $statement->fetchALL();
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>WearIT</title>
     <link rel="stylesheet" href="style2.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" />
   </head>
   <body class="main-background2">
     <header>
@@ -44,7 +45,10 @@ $items = $statement->fetchALL();
         <a href="randomize.php">Randomize</a>
         <a href="myoutfit.php">My Outfits</a>
         <a href="favorite.php">Favorites</a>
-        <span class="badge2"><?= htmlspecialchars($_SESSION['user']['name']) ?> · <?= htmlspecialchars($_SESSION['user']['role']) ?></span>
+        <span class="badge">
+        <span class="username"><?= htmlspecialchars($_SESSION['user']['name']) ?></span> 
+        <span class="role"><?= htmlspecialchars($_SESSION['user']['role']) ?></span>
+        </span>
         <a href="logout.php">Log Out</a>
       </nav>
     </header>
