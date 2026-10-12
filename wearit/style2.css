@@ -50,18 +50,10 @@ header {
   z-index: 10;
 }
 
-.badge{
+.badge {
   display: flex;
   align-items: center;
   gap: 0.4rem;
-}
-
-.username {
-  border: 1px solid #fff;
-  border-radius: 5rem;
-  background-color: #fff;;
-  padding: 0 0.5rem;
-  color: #ff9f80;
 }
 
 .role {
@@ -69,6 +61,32 @@ header {
   font-size: 0.8rem;
   font-weight: bold;
   text-transform: uppercase;
+}
+
+.badge {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.1rem 0.1rem 0.1rem 0.9rem;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 5rem;
+  color: #2b2224;
+}
+
+.username {
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.role {
+  padding: 0.2rem 0.5rem;
+  border-radius: 5rem;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  background: #f06262;
+  letter-spacing: 0.03rem;
 }
 
 .logo {
