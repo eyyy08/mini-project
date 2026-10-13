@@ -23,8 +23,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $requiredCategories = ['Top', 'Bottom', 'Shoes'];
     $optionalCategories = ['Outerwear'];
 
-    $statement=$db->prepare("
-    SELECT ci.* FROM clothing_item2 ci
+    $statement=$db->prepare("SELECT ci.* FROM clothing_item2 ci
     JOIN category2 c ON ci.category2_id = c.id
     WHERE ci.user2_id = ? AND c.name = ?
     ORDER BY RAND()
