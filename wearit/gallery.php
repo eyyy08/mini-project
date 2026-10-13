@@ -9,6 +9,7 @@ if (!isLoggedIn()) {
 
 $db = new PDO("mysql:host=localhost;dbname=wearit_2", "root", "");
 
+// show outfit
 $outfits=$db->query("SELECT o.*, u.name AS owner_name
 FROM outfit2 o
 JOIN user2 u ON o.user2_id = u.id

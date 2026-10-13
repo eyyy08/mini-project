@@ -9,10 +9,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
   $email = trim($_POST['email']);
   $password = $_POST['password'];
 
+  // find the user by email
   $statement=$db->prepare("SELECT * FROM user2 WHERE email = ?");
   $statement->execute([$email]);
   $user = $statement->fetch();
 
+  // a user was found and password match
   if ($user && password_verify($password, $user['password_hash'])){
     $_SESSION['user']=[
       'id' => $user['id'],
@@ -21,6 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
       'role' => $user['role'],
     ];
 
+    // switch
     if ($user['role'] === 'admin') {
       header('Location: admincategory.php');
 

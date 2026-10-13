@@ -9,6 +9,7 @@ if (!isLoggedIn() || !isUser()) {
 
 $db = new PDO("mysql:host=localhost;dbname=wearit_2", "root", "");
 
+// delete outfit
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $statement = $db->prepare("DELETE FROM outfit2 WHERE id = ? AND user2_id = ?");
     $statement->execute([(int) $_POST['id'], $_SESSION['user']['id']]);

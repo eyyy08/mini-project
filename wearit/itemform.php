@@ -14,6 +14,7 @@ if (!isUser()) {
 $db = new PDO("mysql:host=localhost;dbname=wearit_2", "root", "");
 
 $itemid = isset($_GET['id']) ? (int) $_GET['id'] :null;
+// look for ?id= in the address
 $item = [
     'name' => '', 
     'category2_id' => '', 
@@ -23,6 +24,7 @@ $item = [
     'image_path' => ''];
 $errors =[];
 
+// edit, read the old memory
 if ($itemid){
     $statement = $db->prepare("SELECT * FROM clothing_item2 WHERE id = ? AND user2_id = ?");
     $statement->execute([$itemid, $_SESSION['user']['id']]);
@@ -35,6 +37,7 @@ if ($itemid){
     $item = $existing;
 }
 
+// add item
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $item['name'] = trim($_POST['name']);
     $item['category2_id'] = (int)($_POST['category2_id']);
@@ -47,6 +50,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors[] = 'Name and category are required.';
     }
 
+    // save changes
     if (empty($errors)) {
         if($itemid){
             $statement = $db->prepare("UPDATE clothing_item2 SET name = ?, category2_id = ?, color = ?, material = ?, pattern = ?, image_path = ? WHERE id = ? AND user2_id = ? ");

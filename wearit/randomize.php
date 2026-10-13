@@ -17,6 +17,7 @@ $db = new PDO("mysql:host=localhost;dbname=wearit_2", "root", "");
 $outfit = [];
 $message = '';
 
+// randomize my outfit - random search
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
   if($_POST['action'] === 'generate') {
     $requiredCategories = ['Top', 'Bottom', 'Shoes'];
@@ -32,6 +33,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     $missingRequired = false;
 
+    // randomize my outfit - cycle
     foreach (array_merge($requiredCategories, $optionalCategories) as $categoryName) {
       $statement->execute([$_SESSION['user']['id'], $categoryName]);
       $item = $statement->fetch();
@@ -44,13 +46,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     }
 
     if($missingRequired){
-      $message = 'You need at least one Top, Bottom and a pair of Shoes to generate an outfit.';
+      $message = 'You need at least one Top, one Bottom and a pair of Shoes to generate an outfit.';
       $outfit = [];
     } else {
       $_SESSION['last_outfit'] = array_column($outfit, 'id');
     }
   }
 
+  // save this outfit
   if ($_POST['action'] === 'save') {
     $itemids = $_SESSION['last_outfit'] ?? [];
 
@@ -108,6 +111,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           <button type="submit" class="btn randomize1-btn">Randomize my outfit</button>
         </form>
 
+        <!-- show the outfit -->
         <?php if ($message): ?>
           <p style="color: red;"><?= $message ?></p>
         <?php endif; ?>

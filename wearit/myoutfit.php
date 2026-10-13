@@ -14,6 +14,7 @@ if (!isUser()) {
 
 $db = new PDO("mysql:host=localhost;dbname=wearit_2", "root", "");
 
+// share publicly / Make private
 if($_SERVER['REQUEST_METHOD'] === "POST" && $_POST['action'] === 'toggle_public') {
   $outfitID = (int) $_POST['outfit2_id'];
   $statement = $db->prepare("UPDATE outfit2 SET is_public = NOT is_public WHERE id = ? AND user2_id = ?");
@@ -22,6 +23,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST" && $_POST['action'] === 'toggle_public'
   exit;
 }
 
+// search
 $statement = $db->prepare("SELECT * FROM outfit2 WHERE user2_id = ? ORDER BY created_at DESC");
 $statement->execute([$_SESSION['user']['id']]);
 $outfits = $statement->fetchAll();

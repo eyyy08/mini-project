@@ -14,6 +14,7 @@ if (!isUser() && !isGuest()) {
 
 $db = new PDO("mysql:host=localhost;dbname=wearit_2", "root", "");
 
+// show your favorite
 $statement = $db->prepare("SELECT o.*, u.name AS owner_name
   FROM favorite2 f
   JOIN outfit2 o ON f.outfit2_id = o.id

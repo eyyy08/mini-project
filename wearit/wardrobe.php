@@ -14,6 +14,7 @@ if (!isUser()) {
 
 $db = new PDO("mysql:host=localhost;dbname=wearit_2", "root", "");
 
+// show cloth
 $statement = $db->prepare("SELECT ci.*, c.name AS category2_name
 FROM clothing_item2 ci
 JOIN category2 c ON ci.category2_id = c.id
@@ -23,6 +24,7 @@ ORDER BY ci.created_at DESC
 
 $statement->execute([$_SESSION['user']['id']]);
 $items = $statement->fetchALL();
+// get all results into the $items list
 
 ?>
 
@@ -66,13 +68,16 @@ $items = $statement->fetchALL();
         <div class="container">
           <?php foreach ($items as $item): ?>
           <div class="card">
+            <!-- shows the image only if an image URL was filled in -->
             <?php if (!empty($item['image_path'])): ?>
             <img src="<?= htmlspecialchars($item['image_path'] ?? '') ?>" alt="<?= htmlspecialchars($item['name']) ?>" class="img">
             <?php endif; ?>
             <h3><?= htmlspecialchars($item['name']) ?></h3>
             <p><?= htmlspecialchars($item['category2_name']) ?></p>
             <?php $details = array_filter([$item['color'], $item['material'], $item['pattern']]); ?>
+            <!-- remove the empty one -->
             <p><?= htmlspecialchars(implode(', ', $details)) ?></p>
+            <!-- joins what remains with commas -->
 
             <div class="wardrobe-btn">
               <a class="btn outfit-btn" href="itemform.php?id=<?= $item['id'] ?>">Edit</a>

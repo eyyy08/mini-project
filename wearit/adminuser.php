@@ -17,6 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'];
     $userId = (int) $_POST['user2_id'];
 
+    // change role
     if ($action === 'change_role') {
         $role = $_POST['role'];
         if (in_array($role, ['admin', 'user', 'guest'])) {
@@ -25,6 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
+    // delete user
     if ($action === 'delete_user') {
         if ($userId !== (int) $_SESSION['user']['id']) {
             $statement = $db->prepare("DELETE FROM user2 WHERE id = ?");

@@ -17,6 +17,7 @@ $db = new PDO("mysql:host=localhost;dbname=wearit_2", "root", "");
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $action = $_POST['action'];
 
+    // add category
     if($action === 'add_category') {
     $name = trim($_POST['name']);
       if ($name !== ''){
@@ -29,6 +30,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
       }
     }
 
+    // delete category
     if ($action === 'delete_category'){
       try {
           $statement = $db->prepare("DELETE FROM category2 WHERE id = ?");
@@ -42,6 +44,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     exit;
 }
 
+// red alert (need top bottom and shoes)
 $flash = $_SESSION['flash'] ?? '';
 unset($_SESSION['flash']);
 

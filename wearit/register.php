@@ -16,8 +16,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 
   if (empty($errors)){
+    // is this email already use?
     $check = $db->prepare("SELECT id FROM user2 WHERE email = ?");
     $check->execute([$email]);
+
+    // a row came back
     if ($check->fetch()) {
       $errors[] = 'This account already exists.';
     }
@@ -26,6 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if (empty($errors)){
     $hash = password_hash($password, PASSWORD_DEFAULT);
 
+    // add a new user
     $statement=$db->prepare("INSERT INTO user2 (name, email, password_hash, role) VALUES (?, ?, ?, ?)");
     $statement->execute([$name, $email, $hash, $role]);
 
